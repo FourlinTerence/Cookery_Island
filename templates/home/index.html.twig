@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Cookery Island{% endblock %}
+
+{% block body %}
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title">Cookery Island</h1>
+            <p class="hero-subtitle">Des saveurs authentiques, le soleil des îles et le plaisir gourmand de cuisiner et partager ensemble.</p>
+            <a href="#recettes" class="btn btn-accent">Découvrir les recettes</a>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <!-- Section Présentation & Chef -->
+        <section class="chef-section" id="presentation">
+            <div class="chef-image-wrapper">
+                <img src="{{ asset('images/chef reunionnais.webp') }}" alt="Chef cuisinier réunionnais de Cookery Island" class="chef-image">
+                <span class="chef-badge">Chef & Passion</span>
+            </div>
+            <div class="chef-presentation">
+                <h2>Bienvenue chez Cookery Island !</h2>
+                <p>
+                    Ici, nous célébrons la générosité des cuisines créoles, le parfum envoûtant des épices de l'océan Indien et les grands classiques réconfortants. Du cari mijoté au feu de bois aux douceurs pâtissières, chaque recette est une invitation au voyage.
+                </p>
+                <p>
+                    Rejoignez notre communauté de passionnés : découvrez des astuces inédites, partagez vos propres chefs-d'œuvre et échangez vos secrets culinaires avec des gourmets du monde entier.
+                </p>
+                <div class="chef-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🌶️</span>
+                        <span>Épices & Saveurs créoles</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">👨‍🍳</span>
+                        <span>Recettes simples & détaillées</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">❤️</span>
+                        <span>100% Partage & Convivialité</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Dernières Recettes -->
+        <section id="recettes">
+            <div class="section-header">
+                <h2>Nos Recettes du Moment</h2>
+                <p>Découvrez les pépites culinaires préparées avec amour par nos membres</p>
+            </div>
+
+            {% if recipes is not empty %}
+                <div class="recipes-grid">
+                    {% for recipe in recipes %}
+                        <article class="recipe-card">
+                            <div class="recipe-card-media">
+                                {% if recipe.imageName %}
+                                    <img src="{{ asset('images/' ~ recipe.imageName) }}" alt="{{ recipe.title }}" class="recipe-card-img">
+                                {% else %}
+                                    <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="{{ recipe.title }}" class="recipe-card-img" style="object-fit: contain; padding: 2rem;">
+                                {% endif %}
+                                {% if recipe.category %}
+                                    <span class="recipe-card-category">{{ recipe.category.name }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="recipe-card-body">
+                                <h3 class="recipe-card-title">{{ recipe.title }}</h3>
+                                <p class="recipe-card-desc">{{ recipe.description|default('Une délicieuse recette à découvrir pas à pas.')|u.truncate(90, '...') }}</p>
+                                <div class="recipe-card-meta">
+                                    <span class="recipe-meta-item">⏱️ {{ recipe.prepTime ? recipe.prepTime ~ ' min' : '30 min' }}</span>
+                                    <span class="recipe-meta-item">⭐ {{ recipe.difficulty|default('Facile') }}</span>
+                                    <span class="recipe-meta-item">❤️ {{ recipe.recipeLikes|length }}</span>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Aperçu vitrine inspiré de vos recettes réunionnaises & gourmandes -->
+                <div class="recipes-grid">
+                    <article class="recipe-card">
+                        <div class="recipe-card-media">
+                            <img src="{{ asset('images/cari-camarons-réunionnais.jpg') }}" alt="Cari Camarons Réunionnais" class="recipe-card-img">
+                            <span class="recipe-card-category">Plat Réunionnais</span>
+                        </div>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">Cari Camarons Traditionnel</h3>
+                            <p class="recipe-card-desc">Le grand classique réunionnais aux camarons mijotés avec tomates, curcuma frais, gingembre et thym du jardin.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 45 min</span>
+                                <span class="recipe-meta-item">⭐ Moyen</span>
+                                <span class="recipe-meta-item">❤️ 24 likes</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="recipe-card">
+                        <div class="recipe-card-media">
+                            <img src="{{ asset('images/rougail-saucisse.jpg') }}" alt="Rougail Saucisse" class="recipe-card-img">
+                            <span class="recipe-card-category">Plat Typique</span>
+                        </div>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">Rougail Saucisse Fumé</h3>
+                            <p class="recipe-card-desc">L'incontournable rougail cuisiné avec des saucisses fumées, oignons croustillants et une pointe de piment oiseau.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 35 min</span>
+                                <span class="recipe-meta-item">⭐ Facile</span>
+                                <span class="recipe-meta-item">❤️ 42 likes</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="recipe-card">
+                        <div class="recipe-card-media">
+                            <img src="{{ asset('images/chocolateCakeaRogner.jpg') }}" alt="Gâteau au Chocolat Moelleux" class="recipe-card-img">
+                            <span class="recipe-card-category">Dessert Gourmand</span>
+                        </div>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">Fondant au Chocolat Noir</h3>
+                            <p class="recipe-card-desc">Un cœur coulant irrésistible avec du chocolat noir intense et une pointe de fleur de sel.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 25 min</span>
+                                <span class="recipe-meta-item">⭐ Très facile</span>
+                                <span class="recipe-meta-item">❤️ 38 likes</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="empty-state">
+                    <div class="empty-state-icon">🍳</div>
+                    <h3>Prêt à partager votre première recette ?</h3>
+                    <p>La base de données est prête à accueillir toutes vos inspirations culinaires et celles de vos abonnés.</p>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}
