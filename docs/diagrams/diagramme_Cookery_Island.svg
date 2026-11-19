@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 974.6800000000001 884.5999999999999" width="974.6800000000001" height="884.5999999999999" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="cls-inherit" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto-start-reverse">
+    <polygon points="0 0, 12 5, 0 10" fill="var(--bg)" stroke="var(--_arrow)" stroke-width="1.5" />
+  </marker>
+  <marker id="cls-composition" markerWidth="12" markerHeight="10" refX="0" refY="5" orient="auto-start-reverse">
+    <polygon points="6 0, 12 5, 6 10, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="1" />
+  </marker>
+  <marker id="cls-aggregation" markerWidth="12" markerHeight="10" refX="0" refY="5" orient="auto-start-reverse">
+    <polygon points="6 0, 12 5, 6 10, 0 5" fill="var(--bg)" stroke="var(--_arrow)" stroke-width="1.5" />
+  </marker>
+  <marker id="cls-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto-start-reverse">
+    <polyline points="0 0, 8 3, 0 6" fill="none" stroke="var(--_arrow)" stroke-width="1.5" />
+  </marker>
+</defs>
+<polyline class="class-relationship" data-from="USER" data-to="RECIPE" data-type="association" data-marker-at="from" data-label="Rédige" data-from-cardinality="1,1" data-to-cardinality="0,n" points="639.4466666666666,228 639.4466666666666,238 488.3999999999999,238 488.4,368.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="USER" data-to="COMMENT" data-type="association" data-marker-at="from" data-label="Écrit" data-from-cardinality="1,1" data-to-cardinality="0,n" points="679.7466666666667,228 679.7466666666667,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="USER" data-to="RECIPE_LIKE" data-type="association" data-marker-at="from" data-label="Aime" data-from-cardinality="1,1" data-to-cardinality="0,n" points="720.0466666666666,228 720.0466666666666,238 880.9466666666667,238 880.9466666666667,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="RECIPE" data-to="COMMENT" data-type="association" data-marker-at="from" data-label="Reçoit" data-from-cardinality="1,1" data-to-cardinality="0,n" points="504.5199999999999,596.3 504.5199999999999,616.3 626.0133333333333,616.3 626.0133333333333,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="RECIPE" data-to="RECIPE_LIKE" data-type="association" data-marker-at="from" data-label="Reçoit" data-from-cardinality="1,1" data-to-cardinality="0,n" points="536.76,596.3 536.76,606.3 827.2133333333334,606.3 827.2133333333334,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="RECIPE" data-to="CATEGORY" data-type="association" data-marker-at="to" data-label="Appartient à" data-from-cardinality="0,n" data-to-cardinality="1,1" points="472.28,596.3 472.28,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="RECIPE" data-to="RECIPE_INGREDIENT" data-type="association" data-marker-at="from" data-label="Compose" data-from-cardinality="1,1" data-to-cardinality="1,n" points="440.03999999999996,596.3 440.03999999999996,606.3 374.40599999999995,606.3 374.40599999999995,696.5999999999999 198.82399999999996,696.5999999999999 198.82399999999996,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="INGREDIENT" data-to="RECIPE_INGREDIENT" data-type="association" data-marker-at="from" data-label="Est utilisé dans" data-from-cardinality="1,1" data-to-cardinality="0,n" points="307.79999999999995,596.3 307.79999999999995,686.5999999999999 161.36199999999997,686.5999999999999 161.36199999999997,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<polyline class="class-relationship" data-from="UNIT" data-to="RECIPE_INGREDIENT" data-type="association" data-marker-at="from" data-label="Est mesuré en" data-from-cardinality="0,1" data-to-cardinality="0,n" points="123.89999999999999,596.3 123.89999999999999,736.5999999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-start="url(#cls-arrow)" />
+<g class="class-node" data-id="USER" data-label="USER">
+  <rect x="599.1466666666666" y="40" width="161.2" height="188" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="599.1466666666666" y="40" width="161.2" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="679.7466666666667" y="56" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">USER</text>
+  <line x1="599.1466666666666" y1="72" x2="760.3466666666666" y2="72" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="607.1466666666666" y="86" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="607.1466666666666" y="106" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">email</tspan></text>
+  <text x="607.1466666666666" y="126" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">username</tspan></text>
+  <text x="607.1466666666666" y="146" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">password</tspan></text>
+  <text x="607.1466666666666" y="166" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: JSON</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">roles</tspan></text>
+  <text x="607.1466666666666" y="186" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: BOOLEAN</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">is_banned</tspan></text>
+  <text x="607.1466666666666" y="206" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: DATETIME</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">created_at</tspan></text>
+  <line x1="599.1466666666666" y1="220" x2="760.3466666666666" y2="220" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="RECIPE" data-label="RECIPE">
+  <rect x="407.79999999999995" y="368.3" width="161.2" height="228" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="407.79999999999995" y="368.3" width="161.2" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="488.4" y="384.3" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">RECIPE</text>
+  <line x1="407.79999999999995" y1="400.3" x2="569" y2="400.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="415.79999999999995" y="414.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="415.79999999999995" y="434.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">title</tspan></text>
+  <text x="415.79999999999995" y="454.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">slug</tspan></text>
+  <text x="415.79999999999995" y="474.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: TEXT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">description</tspan></text>
+  <text x="415.79999999999995" y="494.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: TEXT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">instructions</tspan></text>
+  <text x="415.79999999999995" y="514.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">image_name</tspan></text>
+  <text x="415.79999999999995" y="534.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">prep_time</tspan></text>
+  <text x="415.79999999999995" y="554.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">cook_time</tspan></text>
+  <text x="415.79999999999995" y="574.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: DATETIME</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">created_at</tspan></text>
+  <line x1="407.79999999999995" y1="588.3" x2="569" y2="588.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="CATEGORY" data-label="CATEGORY">
+  <rect x="412.28" y="736.5999999999999" width="120" height="108" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="412.28" y="736.5999999999999" width="120" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="472.28" y="752.5999999999999" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">CATEGORY</text>
+  <line x1="412.28" y1="768.5999999999999" x2="532.28" y2="768.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="420.28" y="782.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="420.28" y="802.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">name</tspan></text>
+  <text x="420.28" y="822.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">slug</tspan></text>
+  <line x1="412.28" y1="836.5999999999999" x2="532.28" y2="836.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="INGREDIENT" data-label="INGREDIENT">
+  <rect x="247.79999999999998" y="488.3" width="120" height="108" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="247.79999999999998" y="488.3" width="120" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="307.79999999999995" y="504.3" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">INGREDIENT</text>
+  <line x1="247.79999999999998" y1="520.3" x2="367.79999999999995" y2="520.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="255.79999999999998" y="534.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="255.79999999999998" y="554.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">name</tspan></text>
+  <text x="255.79999999999998" y="574.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">slug</tspan></text>
+  <line x1="247.79999999999998" y1="588.3" x2="367.79999999999995" y2="588.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="UNIT" data-label="UNIT">
+  <rect x="40" y="488.3" width="167.79999999999998" height="108" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="488.3" width="167.79999999999998" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="123.89999999999999" y="504.3" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">UNIT</text>
+  <line x1="40" y1="520.3" x2="207.79999999999998" y2="520.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="48" y="534.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="48" y="554.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">name</tspan></text>
+  <text x="48" y="574.3" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: VARCHAR</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">abbreviation</tspan></text>
+  <line x1="40" y1="588.3" x2="207.79999999999998" y2="588.3" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="RECIPE_INGREDIENT" data-label="RECIPE_INGREDIENT">
+  <rect x="86.438" y="736.5999999999999" width="149.84799999999996" height="88" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="86.438" y="736.5999999999999" width="149.84799999999996" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="161.36199999999997" y="752.5999999999999" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">RECIPE_INGREDIENT</text>
+  <line x1="86.438" y1="768.5999999999999" x2="236.28599999999994" y2="768.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="94.438" y="782.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="94.438" y="802.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: FLOAT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">quantity</tspan></text>
+  <line x1="86.438" y1="816.5999999999999" x2="236.28599999999994" y2="816.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="COMMENT" data-label="COMMENT">
+  <rect x="572.28" y="736.5999999999999" width="161.2" height="108" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="572.28" y="736.5999999999999" width="161.2" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="652.88" y="752.5999999999999" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">COMMENT</text>
+  <line x1="572.28" y1="768.5999999999999" x2="733.48" y2="768.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="580.28" y="782.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="580.28" y="802.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: TEXT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">content</tspan></text>
+  <text x="580.28" y="822.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: DATETIME</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">created_at</tspan></text>
+  <line x1="572.28" y1="836.5999999999999" x2="733.48" y2="836.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<g class="class-node" data-id="RECIPE_LIKE" data-label="RECIPE_LIKE">
+  <rect x="773.48" y="736.5999999999999" width="161.2" height="88" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="773.48" y="736.5999999999999" width="161.2" height="32" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="854.08" y="752.5999999999999" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">RECIPE_LIKE</text>
+  <line x1="773.48" y1="768.5999999999999" x2="934.6800000000001" y2="768.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="781.48" y="782.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: INT</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">id</tspan></text>
+  <text x="781.48" y="802.5999999999999" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">: DATETIME</tspan><tspan fill="var(--_text-faint)">: </tspan><tspan fill="var(--_text-muted)">created_at</tspan></text>
+  <line x1="773.48" y1="816.5999999999999" x2="934.6800000000001" y2="816.5999999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+</g>
+<text x="464.9429999999999" y="290.15" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Rédige</text>
+<text x="625.4466666666666" y="242" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="474.4" y="354.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="662.2296666666667" y="474.29999999999995" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Écrit</text>
+<text x="665.7466666666667" y="242" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="665.7466666666667" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="900.0576666666667" y="474.29999999999995" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Aime</text>
+<text x="706.0466666666666" y="242" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="866.9466666666667" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="604.3383333333333" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Reçoit</text>
+<text x="490.5199999999999" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="612.0133333333333" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="805.5383333333333" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Reçoit</text>
+<text x="522.76" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="813.2133333333334" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="437.23999999999995" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Appartient à</text>
+<text x="458.28" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="458.28" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="345.60299999999995" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Compose</text>
+<text x="426.03999999999996" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="184.82399999999996" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,n</text>
+<text x="265.929" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Est utilisé dans</text>
+<text x="293.79999999999995" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1,1</text>
+<text x="147.36199999999997" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+<text x="83.81099999999999" y="658.4499999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Est mesuré en</text>
+<text x="109.89999999999999" y="610.3" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,1</text>
+<text x="109.89999999999999" y="722.5999999999999" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">0,n</text>
+</svg>
