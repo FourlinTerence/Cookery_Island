@@ -6,20 +6,22 @@
 <header>
     <nav class="navbar">
         <div class="navbar-container">
-            {# Marque du site avec logo agrandi et nom #}
-            <a href="{{ path('app_home') }}" class="navbar-brand">
-                <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="navbar-logo">
-                <span class="navbar-title">Cookery Island</span>
-            </a>
+            {# Groupe gauche : Logo, Titre équidistant et Liens de navigation #}
+            <div class="navbar-left">
+                {# Marque du site : logo agrandi à gauche et titre décalé #}
+                <a href="{{ path('app_home') }}" class="navbar-brand">
+                    <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="navbar-logo">
+                    <span class="navbar-title">Cookery Island</span>
+                </a>
 
-            {# Liens de navigation principaux #}
-            <ul class="navbar-nav">
-                <li><a href="{{ path('app_home') }}" class="nav-link active">Accueil</a></li>
-                <li><a href="#recettes" class="nav-link">Nos Recettes</a></li>
-                <li><a href="#presentation" class="nav-link">L'Île Culinaire</a></li>
-            </ul>
+                {# Liens de navigation principaux (sans 'L'Île Culinaire') #}
+                <ul class="navbar-nav">
+                    <li><a href="{{ path('app_home') }}" class="nav-link active">Accueil</a></li>
+                    <li><a href="#recettes" class="nav-link">Nos Recettes</a></li>
+                </ul>
+            </div>
 
-            {# Zone d'authentification utilisateur / Boutons d'action #}
+            {# Zone d'authentification utilisateur / Boutons d'action (alignée à droite) #}
             <div class="navbar-auth">
                 {% if app.user %}
                     <span class="nav-user">Bonjour, <strong>{{ app.user.username ?? app.user.userIdentifier }}</strong></span>
