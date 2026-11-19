@@ -59,6 +59,11 @@ Three specifics worth spelling out, because they are easy to get wrong:
 - Use `symfony/lock` (`LockFactory`) for mutual exclusion. A hand-built flag or
   lock file looks fine in review and is usually wrong under concurrency.
 
+## Git & Branch management
+
+- Never change git branch (`git checkout`, `git switch`, etc.) unless the user explicitly asks to do so.
+- Never run `git reset` (soft, mixed, or hard) unless the user explicitly asks to do so.
+
 ## Everyday workflow
 
 - Run the app with `symfony serve -d`, and commands with `symfony console ...`
