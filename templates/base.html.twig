@@ -15,21 +15,28 @@
         {% endblock %}
     </head>
     <body>
-        <!-- Header & Navigation -->
+        {# =====================================================================
+           EN-TÊTE & BARRE DE NAVIGATION
+           Comprend le logo du site, les liens de navigation et les actions
+           utilisateur (Connexion / Inscription ou Profil / Publication)
+           ===================================================================== #}
         <header>
             <nav class="navbar">
                 <div class="navbar-container">
+                    {# Marque du site avec logo agrandi et nom #}
                     <a href="{{ path('app_home') }}" class="navbar-brand">
                         <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="navbar-logo">
                         <span class="navbar-title">Cookery Island</span>
                     </a>
 
+                    {# Liens de navigation principaux #}
                     <ul class="navbar-nav">
                         <li><a href="{{ path('app_home') }}" class="nav-link active">Accueil</a></li>
                         <li><a href="#recettes" class="nav-link">Nos Recettes</a></li>
                         <li><a href="#presentation" class="nav-link">L'Île Culinaire</a></li>
                     </ul>
 
+                    {# Zone d'authentification utilisateur / Boutons d'action #}
                     <div class="navbar-auth">
                         {% if app.user %}
                             <span class="nav-user">Bonjour, <strong>{{ app.user.username ?? app.user.userIdentifier }}</strong></span>
@@ -46,18 +53,28 @@
             </nav>
         </header>
 
-        <!-- Main Content -->
+        {# =====================================================================
+           CONTENU PRINCIPAL
+           Zone injectable pour chaque vue spécifique de l'application
+           ===================================================================== #}
         <main>
             {% block body %}{% endblock %}
         </main>
 
-        <!-- Footer -->
+        {# =====================================================================
+           PIED DE PAGE (FOOTER)
+           Présentation de la marque à gauche avec logo & résumé,
+           puis colonnes de navigation et communauté
+           ===================================================================== #}
         <footer class="footer">
             <div class="footer-container">
+                {# Colonne 1 : Logo agrandi et phrase d'accroche culinaire #}
                 <div class="footer-brand">
                     <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="footer-logo">
-                    <p>Le blog culinaire où la passion des îles et du partage se rencontrent. Découvrez nos recettes gourmandes créoles, réunionnaises et du monde entier.</p>
+                    <p class="footer-desc">Le blog culinaire où la passion des îles et du partage se rencontrent. Découvrez nos recettes gourmandes créoles, réunionnaises et du monde entier.</p>
                 </div>
+
+                {# Colonne 2 : Liens de navigation #}
                 <div class="footer-col">
                     <h4>Navigation</h4>
                     <ul class="footer-links">
@@ -66,6 +83,8 @@
                         <li><a href="#presentation">À propos du chef</a></li>
                     </ul>
                 </div>
+
+                {# Colonne 3 : Liens d'accès membre et informations légales #}
                 <div class="footer-col">
                     <h4>Communauté</h4>
                     <ul class="footer-links">
@@ -75,6 +94,8 @@
                     </ul>
                 </div>
             </div>
+
+            {# Mention de copyright et année dynamique #}
             <div class="footer-bottom">
                 <p>&copy; {{ "now"|date("Y") }} Cookery Island. Tous droits réservés.</p>
             </div>

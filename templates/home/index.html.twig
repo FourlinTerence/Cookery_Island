@@ -3,7 +3,10 @@
 {% block title %}Accueil - Cookery Island{% endblock %}
 
 {% block body %}
-    <!-- Hero Banner -->
+    {# =========================================================================
+       1. HERO BANNER
+       Bannière d'accueil avec titre principal, sous-titre d'accroche et appel à l'action
+       ========================================================================= #}
     <section class="hero-banner">
         <div class="hero-content">
             <h1 class="hero-title">Cookery Island</h1>
@@ -13,12 +16,19 @@
     </section>
 
     <div class="main-content">
-        <!-- Section Présentation & Chef -->
+        {# =====================================================================
+           2. SECTION PRÉSENTATION DU CHEF & HISTOIRE DU BLOG
+           Mise en valeur de l'image du chef réunionnais, description de la passion
+           culinaire et badges d'engagement (saveurs, simplicité, partage)
+           ===================================================================== #}
         <section class="chef-section" id="presentation">
+            {# Bloc image du chef avec badge superposé #}
             <div class="chef-image-wrapper">
                 <img src="{{ asset('images/chef reunionnais.webp') }}" alt="Chef cuisinier réunionnais de Cookery Island" class="chef-image">
                 <span class="chef-badge">Chef & Passion</span>
             </div>
+
+            {# Texte de présentation et points forts #}
             <div class="chef-presentation">
                 <h2>Bienvenue chez Cookery Island !</h2>
                 <p>
@@ -44,13 +54,18 @@
             </div>
         </section>
 
-        <!-- Section Dernières Recettes -->
+        {# =====================================================================
+           3. SECTION GRILLE DES RECETTES
+           Affiche soit les recettes dynamiques issues de la base de données,
+           soit des cartes d'aperçu vitrine si la base est encore vide.
+           ===================================================================== #}
         <section id="recettes">
             <div class="section-header">
                 <h2>Nos Recettes du Moment</h2>
                 <p>Découvrez les pépites culinaires préparées avec amour par nos membres</p>
             </div>
 
+            {# Cas A : Recettes disponibles en base de données #}
             {% if recipes is not empty %}
                 <div class="recipes-grid">
                     {% for recipe in recipes %}
@@ -78,8 +93,9 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <!-- Aperçu vitrine inspiré de vos recettes réunionnaises & gourmandes -->
+                {# Cas B : Recettes de démonstration pour vitrine initiale #}
                 <div class="recipes-grid">
+                    {# Carte 1 : Cari camarons #}
                     <article class="recipe-card">
                         <div class="recipe-card-media">
                             <img src="{{ asset('images/cari-camarons-réunionnais.jpg') }}" alt="Cari Camarons Réunionnais" class="recipe-card-img">
@@ -96,6 +112,7 @@
                         </div>
                     </article>
 
+                    {# Carte 2 : Rougail saucisse #}
                     <article class="recipe-card">
                         <div class="recipe-card-media">
                             <img src="{{ asset('images/rougail-saucisse.jpg') }}" alt="Rougail Saucisse" class="recipe-card-img">
@@ -112,6 +129,7 @@
                         </div>
                     </article>
 
+                    {# Carte 3 : Fondant au chocolat #}
                     <article class="recipe-card">
                         <div class="recipe-card-media">
                             <img src="{{ asset('images/chocolateCakeaRogner.jpg') }}" alt="Gâteau au Chocolat Moelleux" class="recipe-card-img">
@@ -129,6 +147,7 @@
                     </article>
                 </div>
 
+                {# Bloc d'incitation à la publication #}
                 <div class="empty-state">
                     <div class="empty-state-icon">🍳</div>
                     <h3>Prêt à partager votre première recette ?</h3>

@@ -52,7 +52,10 @@ a {
     transition: var(--transition);
 }
 
-/* NAVBAR */
+/* ==========================================================================
+   NAVIGATION / HEADER
+   Barre de navigation principale, logo, liens et boutons d'action utilisateur
+   ========================================================================== */
 .navbar {
     background-color: var(--sand);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -71,6 +74,7 @@ a {
     justify-content: space-between;
 }
 
+/* Bloc logo + nom du site */
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -78,15 +82,17 @@ a {
     text-decoration: none;
 }
 
+/* Logo agrandi dans la barre de navigation */
 .navbar-logo {
-    height: 52px;
+    height: 95px;
     width: auto;
     object-fit: contain;
+    transition: var(--transition);
 }
 
 .navbar-title {
     font-family: 'Calistoga', cursive;
-    font-size: 1.8rem;
+    font-size: 2.1rem;
     color: var(--primary-dark);
     letter-spacing: 0.5px;
 }
@@ -131,6 +137,10 @@ a {
     gap: 1rem;
 }
 
+/* ==========================================================================
+   BOUTONS & COMPOSANTS D'ACTION
+   Styles uniformes pour les boutons (primaire, contour, accentuation)
+   ========================================================================== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -180,7 +190,10 @@ a {
     box-shadow: 0 4px 12px rgba(217, 119, 54, 0.35);
 }
 
-/* HERO BANNER */
+/* ==========================================================================
+   HERO BANNER
+   Bannière d'accroche avec dégradé chaud et image d'arrière-plan
+   ========================================================================== */
 .hero-banner {
     position: relative;
     background: linear-gradient(135deg, rgba(163, 121, 93, 0.92) 0%, rgba(122, 84, 59, 0.95) 100%), 
@@ -208,7 +221,10 @@ a {
     margin-bottom: 2rem;
 }
 
-/* MAIN CONTAINER */
+/* ==========================================================================
+   CONTENEUR PRINCIPAL
+   Zone de contenu étalée et centrée pour aérer la lecture
+   ========================================================================== */
 .main-content {
     max-width: 1560px;
     width: 95%;
@@ -217,7 +233,10 @@ a {
     flex: 1;
 }
 
-/* PRESENTATION / CHEF SECTION */
+/* ==========================================================================
+   SECTION PRÉSENTATION & CHEF
+   Carte de bienvenue avec portrait du chef et résumé des valeurs
+   ========================================================================== */
 .chef-section {
     background-color: var(--sand-light);
     border-radius: var(--radius-lg);
@@ -303,7 +322,10 @@ a {
     font-size: 1.3rem;
 }
 
-/* SECTION TITLES */
+/* ==========================================================================
+   GRILLE DES RECETTES & CARTES
+   Disposition fluide des cartes avec vignettes, badges et métadonnées
+   ========================================================================== */
 .section-header {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -320,7 +342,6 @@ a {
     font-size: 1.05rem;
 }
 
-/* RECIPES GRID */
 .recipes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -411,7 +432,10 @@ a {
     gap: 0.4rem;
 }
 
-/* EMPTY STATE */
+/* ==========================================================================
+   ÉTAT VIDE / INVITATION À PUBLIER
+   Affiché lorsque la base de données ne contient pas encore de recettes
+   ========================================================================== */
 .empty-state {
     text-align: center;
     padding: 3.5rem 1.5rem;
@@ -436,7 +460,10 @@ a {
     margin-bottom: 1.5rem;
 }
 
-/* FOOTER */
+/* ==========================================================================
+   FOOTER (PIED DE PAGE)
+   Contient le logo de marque, la description du blog, les menus et le copyright
+   ========================================================================== */
 .footer {
     background-color: var(--sand);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -444,33 +471,56 @@ a {
     margin-top: auto;
 }
 
+/* Conteneur principal du footer : répartit les blocs via Flexbox */
 .footer-container {
     max-width: 1560px;
     width: 95%;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
 }
 
+/* Bloc marque : logo à gauche et texte descriptif placé à sa droite sans gêner les autres colonnes */
 .footer-brand {
     display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+    align-items: center;
+    gap: 2rem;
+    flex: 1 1 520px;
+    max-width: 650px;
 }
 
+/* Logo agrandi dans le footer */
 .footer-logo {
-    height: 48px;
+    height: 100px;
     width: auto;
     object-fit: contain;
-    align-self: flex-start;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+/* Phrase de présentation positionnée à droite du logo avec bordure décorative */
+.footer-desc {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    max-width: 380px;
+    border-left: 2px solid var(--primary-light);
+    padding-left: 1.2rem;
+}
+
+/* Colonnes secondaires (Navigation et Communauté) */
+.footer-col {
+    flex: 0 1 200px;
 }
 
 .footer-col h4 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--primary-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 .footer-links {
@@ -485,6 +535,7 @@ a {
     padding-left: 4px;
 }
 
+/* Barre inférieure contenant le copyright */
 .footer-bottom {
     text-align: center;
     padding-top: 1.5rem;
@@ -493,7 +544,10 @@ a {
     color: var(--text-muted);
 }
 
-/* RESPONSIVE */
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   Adaptations pour tablettes et mobiles
+   ========================================================================== */
 @media (max-width: 900px) {
     .chef-section {
         grid-template-columns: 1fr;
