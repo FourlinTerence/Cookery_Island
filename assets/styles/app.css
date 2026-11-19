@@ -557,8 +557,9 @@ a {
 
 /* Logo agrandi dans le footer */
 .footer-logo {
-    height: 105px;
+    height: 145px;
     width: auto;
+    max-width: 280px;
     object-fit: contain;
     transition: var(--transition);
 }
