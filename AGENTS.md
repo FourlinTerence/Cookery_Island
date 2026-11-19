@@ -62,6 +62,7 @@ Three specifics worth spelling out, because they are easy to get wrong:
 ## Git & Branch management
 
 - Never change git branch (`git checkout`, `git switch`, etc.) unless the user explicitly asks to do so.
+- Never run `git reset` (soft, mixed, or hard) unless the user explicitly asks to do so.
 
 ## Everyday workflow
 
