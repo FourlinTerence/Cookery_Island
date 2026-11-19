@@ -40,6 +40,12 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $cookTime = null;
 
+    /**
+     * Nombre de portions / personnes pour lesquelles la recette est prévue.
+     */
+    #[ORM\Column(nullable: true)]
+    private ?int $servings = null;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $difficulty = null;
 
@@ -179,6 +185,24 @@ class Recipe
     public function setCookTime(?int $cookTime): static
     {
         $this->cookTime = $cookTime;
+
+        return $this;
+    }
+
+    /**
+     * Retourne le nombre de portions / personnes de la recette.
+     */
+    public function getServings(): ?int
+    {
+        return $this->servings;
+    }
+
+    /**
+     * Définit le nombre de portions / personnes de la recette.
+     */
+    public function setServings(?int $servings): static
+    {
+        $this->servings = $servings;
 
         return $this;
     }
