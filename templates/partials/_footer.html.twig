@@ -1,14 +1,15 @@
 {# =============================================================================
    PARTIAL: FOOTER (PIED DE PAGE)
-   Présentation de la marque, liens de navigation, communauté et mentions légales.
+   3 éléments positionnés à égale distance : Logo, Navigation et Communauté.
    Inclus par défaut dans le bloc {% block footer %} du layout base.html.twig.
    ============================================================================= #}
 <footer class="footer">
     <div class="footer-container">
-        {# Colonne 1 : Marque, logo agrandi et phrase d'accroche culinaire #}
+        {# Colonne 1 : Logo de la marque Cookery Island #}
         <div class="footer-brand">
-            <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="footer-logo">
-            <p class="footer-desc">Le blog culinaire où la passion des îles et du partage se rencontrent. Découvrez nos recettes gourmandes créoles, réunionnaises et du monde entier.</p>
+            <a href="{{ path('app_home') }}" title="Retour à l'accueil Cookery Island">
+                <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="footer-logo">
+            </a>
         </div>
 
         {# Colonne 2 : Liens de navigation interne #}

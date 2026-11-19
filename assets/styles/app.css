@@ -525,65 +525,71 @@ a {
 
 /* ==========================================================================
    FOOTER (PIED DE PAGE)
-   Contient le logo de marque, la description du blog, les menus et le copyright
+   3 éléments positionnés à égale distance : Logo, Navigation et Communauté,
+   suivis de la barre de copyright en bas de page
    ========================================================================== */
 .footer {
     background-color: var(--sand);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 3rem 1.5rem 1.5rem;
+    padding: 3.5rem 1.5rem 1.5rem;
     margin-top: auto;
 }
 
-/* Conteneur principal du footer : répartit les blocs via Flexbox */
+/* Conteneur principal du footer : 3 colonnes réparties à égale distance */
 .footer-container {
     max-width: 1560px;
     width: 95%;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 3.5rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    justify-items: center;
+    gap: 3rem;
     margin-bottom: 2.5rem;
 }
 
-/* Bloc marque : logo à gauche et texte descriptif placé à sa droite sans gêner les autres colonnes */
+/* Bloc marque : logo seul et centré dans sa colonne */
 .footer-brand {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    flex: 1 1 520px;
-    max-width: 650px;
 }
 
 /* Logo agrandi dans le footer */
 .footer-logo {
-    height: 100px;
+    height: 105px;
     width: auto;
     object-fit: contain;
-    flex-shrink: 0;
     transition: var(--transition);
 }
 
-/* Phrase de présentation positionnée à droite du logo avec bordure décorative */
-.footer-desc {
-    font-size: 0.95rem;
-    color: var(--text-dark);
-    line-height: 1.6;
-    max-width: 380px;
-    border-left: 2px solid var(--primary-light);
-    padding-left: 1.2rem;
+.footer-logo:hover {
+    transform: scale(1.05);
 }
 
 /* Colonnes secondaires (Navigation et Communauté) */
 .footer-col {
-    flex: 0 1 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .footer-col h4 {
     font-size: 1.25rem;
     color: var(--primary-dark);
     margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.4rem;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 2px;
+    background-color: var(--primary-light);
 }
 
 .footer-links {
@@ -662,7 +668,17 @@ a {
 
     .footer-container {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .footer-col {
+        align-items: center;
+    }
+
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
