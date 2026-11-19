@@ -63,6 +63,10 @@ Three specifics worth spelling out, because they are easy to get wrong:
 
 - Never change git branch (`git checkout`, `git switch`, etc.) unless the user explicitly asks to do so.
 - Never run `git reset` (soft, mixed, or hard) unless the user explicitly asks to do so.
+- When working on the branch `terence`, once an addition or task is completed, automatically run:
+  1. `git add .`
+  2. `git commit -m "<short explanation of what was done>"`
+  3. `git push`
 
 ## Everyday workflow
 
