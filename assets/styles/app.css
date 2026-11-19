@@ -192,15 +192,15 @@ a {
 
 /* ==========================================================================
    HERO BANNER
-   Bannière d'accroche avec dégradé chaud et image d'arrière-plan
+   Bannière d'accroche principale avec image d'arrière-plan brute (sans filtre),
+   ombres portées renforcées pour garantir la lisibilité parfaite du texte
    ========================================================================== */
 .hero-banner {
     position: relative;
-    background: linear-gradient(135deg, rgba(163, 121, 93, 0.92) 0%, rgba(122, 84, 59, 0.95) 100%), 
-                url('../images/backgroundHeader.jpg') center/cover no-repeat;
+    background: url('../images/backgroundHeader.jpg') center/cover no-repeat;
     color: var(--white);
     text-align: center;
-    padding: 4.5rem 1.5rem;
+    padding: 5rem 1.5rem;
 }
 
 .hero-content {
@@ -211,14 +211,14 @@ a {
 .hero-title {
     font-size: 3.8rem;
     margin-bottom: 0.8rem;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .hero-subtitle {
     font-size: 1.35rem;
-    font-weight: 300;
-    opacity: 0.95;
+    font-weight: 400;
     margin-bottom: 2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 /* ==========================================================================
