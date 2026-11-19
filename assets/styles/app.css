@@ -197,6 +197,11 @@ a {
     box-shadow: 0 4px 12px rgba(217, 119, 54, 0.35);
 }
 
+.btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+}
+
 /* ==========================================================================
    HERO BANNER
    Bannière d'accroche principale avec image d'arrière-plan brute (sans filtre),
@@ -524,6 +529,271 @@ a {
 }
 
 /* ==========================================================================
+   PAGE DÉTAIL D'UNE RECETTE (ARTICLE)
+   Styles de la fiche recette, ingrédients en 2 colonnes, étapes et commentaires
+   ========================================================================== */
+.recipe-content {
+    max-width: 1100px;
+    padding-top: 2.5rem;
+}
+
+/* Image principale du plat */
+.recipe-main-media {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.recipe-featured-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Grille de métadonnées de la recette (temps, portions, difficulté) */
+.recipe-meta-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.recipe-meta-box {
+    background-color: var(--white);
+    padding: 1.2rem 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.3rem;
+    border: 1px solid var(--sand);
+}
+
+.meta-box-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.meta-box-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.meta-box-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Blocs de contenu de la recette (ingrédients, étapes, commentaires) */
+.recipe-card-box {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 2.5rem 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Bloc des ingrédients sur 2 colonnes conforme à la maquette */
+.recipe-ingredients-box {
+    background-color: var(--sand-light);
+    border: 1px solid rgba(163, 121, 93, 0.15);
+}
+
+.recipe-box-title {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.ingredients-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.ingredients-list li {
+    position: relative;
+    padding-left: 1.8rem;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+.ingredients-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0.4rem;
+    top: -2px;
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
+/* Blocs d'étapes de préparation */
+.recipe-step-box {
+    border-left: 4px solid var(--primary);
+}
+
+.recipe-step-title {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.recipe-step-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* Image intermédiaire d'illustration */
+.recipe-secondary-media {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.recipe-step-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Section commentaires */
+.recipe-comments-box {
+    border-top: 3px solid var(--primary);
+}
+
+.comments-main-title {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 3rem;
+}
+
+.comment-item {
+    background-color: var(--cream);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--sand);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.comment-avatar {
+    font-size: 1.8rem;
+    width: 44px;
+    height: 44px;
+    background-color: var(--sand);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-author {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.comment-rating {
+    margin-left: auto;
+    font-size: 0.95rem;
+}
+
+.comment-content {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Formulaire d'ajout de commentaire */
+.comment-form-wrapper {
+    background-color: var(--sand-light);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+}
+
+.comment-form-title {
+    font-size: 1.35rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--sand);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: var(--white);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(217, 119, 54, 0.15);
+}
+
+/* ==========================================================================
    FOOTER (PIED DE PAGE)
    3 éléments positionnés à égale distance : Logo, Navigation et Communauté,
    suivis de la barre de copyright en bas de page
@@ -680,6 +950,20 @@ a {
     .footer-col h4::after {
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .recipe-meta-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .ingredients-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .recipe-card-box {
+        padding: 2rem 1.5rem;
     }
 }
 
