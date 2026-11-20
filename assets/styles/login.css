@@ -1,8 +1,8 @@
 /**
- * Cookery Island - Feuille de styles dédiée à la page de connexion (login.css)
+ * Cookery Island - Styles pour l'authentification (Connexion & Inscription)
+ * Fichier : assets/styles/login.css
  * 
- * Hérite des variables globales de app.css.
- * Conçue pour s'harmoniser parfaitement avec la carte de l'article :
+ * Harmonie avec la maquette de l'article :
  * - Fond de page : Caramel chaud (#A3795D)
  * - Fond du panneau : Sable (#E8E2DA)
  * - Typographie H2 : Copse
@@ -18,7 +18,7 @@
     padding: 48px 20px;
 }
 
-/* Carte de connexion principale (style harmonisé avec les encadrés d'article) */
+/* Carte principale (style harmonisé avec les encadrés d'article) */
 .login-card {
     width: 100%;
     max-width: 540px;
@@ -29,10 +29,15 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* En-tête du bloc de connexion */
+/* Variante légèrement plus large pour le formulaire d'inscription */
+.register-card {
+    max-width: 620px;
+}
+
+/* En-tête du bloc */
 .login-card-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .login-card-title {
@@ -50,7 +55,7 @@
     line-height: 1.5;
 }
 
-/* Alerte en cas d'erreur de saisie ou d'identifiants incorrects */
+/* Alertes (erreurs et succès) */
 .auth-alert-box {
     padding: 12px 16px;
     border-radius: 4px;
@@ -65,9 +70,15 @@
     border: 1px solid #F5C2C7;
 }
 
+.auth-alert-success {
+    background-color: #D4EDDA;
+    color: #155724;
+    border: 1px solid #C3E6CB;
+}
+
 /* Groupes de champs de saisie */
 .form-field-group {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .form-label-row {
@@ -113,14 +124,21 @@
     font-size: 0.95rem;
 }
 
-/* Case à cocher "Se souvenir de moi" */
+/* Ligne en grille pour l'inscription (mots de passe côte à côte sur écran large) */
+.form-grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Case à cocher */
 .form-checkbox-group {
     margin-bottom: 24px;
 }
 
 .form-checkbox-label {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     cursor: pointer;
     user-select: none;
@@ -129,19 +147,21 @@
 .form-checkbox-input {
     width: 18px;
     height: 18px;
+    margin-top: 2px;
     accent-color: var(--color-caramel);
     cursor: pointer;
 }
 
 .form-checkbox-text {
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     color: var(--color-text-dark);
+    line-height: 1.4;
 }
 
 /* Bouton principal de soumission */
 .form-submit-group {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
 }
 
 .btn-auth-submit {
@@ -167,7 +187,20 @@
     transform: scale(0.99);
 }
 
-/* Liens secondaires et états désactivés / grisés (règle stricte UI) */
+/* Liens secondaires et navigation */
+.auth-link-action {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-caramel-dark);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.auth-link-action:hover {
+    color: var(--color-black);
+}
+
 .auth-link-disabled {
     font-family: var(--font-body);
     font-size: 0.88rem;
@@ -193,9 +226,14 @@
 }
 
 /* Responsive pour tablettes et smartphones */
-@media (max-width: 576px) {
+@media (max-width: 600px) {
     .login-card {
-        padding: 28px 22px;
+        padding: 28px 20px;
+    }
+
+    .form-grid-row {
+        grid-template-columns: 1fr;
+        gap: 0;
     }
 
     .login-card-title {

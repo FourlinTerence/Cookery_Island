@@ -2,6 +2,9 @@
 
 {% block title %}Connexion - Cookery Island{% endblock %}
 
+{# Le header (barre de navigation) est retiré sur cette page conformément à la demande #}
+{% block header %}{% endblock %}
+
 {% block body %}
     {# Bannière supérieure reprenant le fond ustensiles en bois du template article #}
     <section class="banner-section" aria-label="Bannière de la page">
@@ -21,6 +24,13 @@
                     Connectez-vous pour retrouver vos recettes favorites et participer aux échanges culinaires.
                 </p>
             </header>
+
+            {# Messages flash (ex: confirmation d'inscription réussie) #}
+            {% for message in app.flashes('success') %}
+                <div class="auth-alert-box auth-alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
 
             {# Notification d'erreur Symfony le cas échéant #}
             {% if error %}
@@ -80,10 +90,10 @@
                     </button>
                 </div>
 
-                {# Lien vers l'inscription grisé car non encore implémenté #}
+                {# Lien vers l'inscription désormais actif car la page d'inscription est disponible #}
                 <div class="login-card-footer">
                     <span class="login-register-prompt">Pas encore de compte ?</span>
-                    <span class="auth-link-disabled" title="Module d'inscription en cours de développement">Créer un compte</span>
+                    <a href="{{ path('app_register') }}" class="auth-link-action">Créer un compte</a>
                 </div>
             </form>
         </div>

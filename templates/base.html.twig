@@ -20,7 +20,8 @@
         {% endblock %}
     </head>
     <body class="site-body">
-        {# Barre de navigation supérieure reprenant fidèlement la structure du template article #}
+        {# Bloc d'en-tête personnalisable (peut être omis sur les pages de connexion/inscription) #}
+        {% block header %}
         <header class="site-header">
             <div class="header-container">
                 <a href="/" class="header-logo-link" title="Cookery Island - Accueil">
@@ -39,6 +40,7 @@
                 </div>
             </div>
         </header>
+        {% endblock %}
 
         {# Contenu principal spécifique à chaque page #}
         <main class="page-main-wrapper">
