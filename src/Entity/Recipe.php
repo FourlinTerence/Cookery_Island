@@ -356,4 +356,39 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * Calcule et retourne le temps total de la recette (préparation + cuisson).
+     *
+     * @return int|null Temps en minutes ou null si aucun temps n'est défini
+     */
+    public function getTotalTime(): ?int
+    {
+        if ($this->prepTime === null && $this->cookTime === null) {
+            return null;
+        }
+
+        return ($this->prepTime ?? 0) + ($this->cookTime ?? 0);
+    }
+
+    /**
+     * Détermine si la recette a été likée par un utilisateur donné.
+     *
+     * @param User|null $user L'utilisateur connecté ou null
+     * @return bool True si l'utilisateur a liké cette recette
+     */
+    public function isLikedByUser(?User $user): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+
+        foreach ($this->recipeLikes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -20,6 +20,18 @@
 
     <div class="main-content recipe-content">
 
+        {# --- Affichage des messages flash (succès, information, erreur) --- #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'error' ? 'danger' : label }}" role="alert">
+                    <span class="alert-icon">
+                        {% if label == 'success' %}✅{% elseif label == 'danger' or label == 'error' %}⚠️{% else %}ℹ️{% endif %}
+                    </span>
+                    <span class="alert-text">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {# =====================================================================
            2. IMAGE PRINCIPALE DE LA RECETTE
            Grande photo mise en avant du plat préparé
@@ -155,9 +167,9 @@
 
         {# =====================================================================
            9. ESPACE COMMENTAIRES
-           Liste des commentaires réels en base de données + formulaire statique
+           Liste des commentaires réels en base de données + formulaire dynamique
            ===================================================================== #}
-        <section class="recipe-card-box recipe-comments-box">
+        <section class="recipe-card-box recipe-comments-box" id="commentaires">
             <h2 class="comments-main-title">Commentaires ({{ recipe.comments|length }})</h2>
 
             {# --- Liste des commentaires persistés en base --- #}
@@ -178,24 +190,47 @@
                 {% endfor %}
             </div>
 
-            {# --- Formulaire fictif d'ajout de commentaire (sera remplacé par un Form Symfony) --- #}
+            {# --- Formulaire dynamique d'ajout de commentaire --- #}
             <div class="comment-form-wrapper">
-                <h3 class="comment-form-title">Postez votre commentaire</h3>
-                <form action="#" method="post" class="comment-form"
-                      onsubmit="event.preventDefault(); alert('Merci pour votre commentaire ! Il sera publié prochainement.');">
-                    <div class="form-group">
-                        <label for="comment-pseudo">Votre pseudo</label>
-                        <input type="text" id="comment-pseudo" name="pseudo"
-                               placeholder="Ex: ChefGourmet974" required class="form-control">
+                <h3 class="comment-form-title">Partagez votre avis</h3>
+
+                {% if commentForm %}
+                    {# Cas A : L'utilisateur est authentifié -> formulaire sécurisé avec identité automatique #}
+                    <div class="comment-user-badge">
+                        <span class="user-badge-icon">👨‍🍳</span>
+                        <span>Connecté en tant que <strong>{{ app.user.username ?? app.user.userIdentifier }}</strong></span>
                     </div>
-                    <div class="form-group">
-                        <label for="comment-message">Votre message</label>
-                        <textarea id="comment-message" name="message" rows="4"
-                                  placeholder="Partagez votre avis, vos astuces ou vos variantes sur cette recette..."
-                                  required class="form-control"></textarea>
+
+                    {{ form_start(commentForm, {
+                        'action': path('app_recipe_show', {id: recipe.id}) ~ '#commentaires',
+                        'attr': {'class': 'comment-form'}
+                    }) }}
+                        <div class="form-group">
+                            {{ form_label(commentForm.content, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(commentForm.content) }}
+                            {{ form_errors(commentForm.content) }}
+                        </div>
+
+                        <button type="submit" class="btn btn-accent">
+                            Publier mon commentaire
+                        </button>
+                    {{ form_end(commentForm) }}
+
+                {% else %}
+                    {# Cas B : L'utilisateur n'est pas connecté -> invitation conviviale à se connecter #}
+                    <div class="comment-login-required">
+                        <span class="login-lock-icon" aria-hidden="true">🔒</span>
+                        <h4>Vous devez être connecté pour commenter</h4>
+                        <p>
+                            Rejoignez la communauté de Cookery Island pour partager vos retours,
+                            astuces et variantes sur cette recette.
+                        </p>
+                        <div class="comment-login-actions">
+                            <a href="#" class="btn btn-primary btn-sm">Se connecter</a>
+                            <a href="#" class="btn btn-outline btn-sm">Créer un compte</a>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-accent">Publier mon commentaire</button>
-                </form>
+                {% endif %}
             </div>
         </section>
 

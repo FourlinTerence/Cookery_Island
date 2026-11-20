@@ -1028,6 +1028,87 @@ a {
     box-shadow: 0 0 0 3px rgba(217, 119, 54, 0.15);
 }
 
+/* Badge de l'utilisateur connecté dans le formulaire de commentaire */
+.comment-user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.user-badge-icon {
+    font-size: 1.2rem;
+}
+
+/* Encart invitant l'utilisateur non connecté à s'authentifier pour commenter */
+.comment-login-required {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--primary-light);
+}
+
+.login-lock-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.comment-login-required h4 {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.4rem;
+}
+
+.comment-login-required p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto 1.2rem;
+}
+
+.comment-login-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Messages flash (succès / alerte) */
+.alert {
+    padding: 1rem 1.4rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #eaf7ed;
+    color: #1f6b34;
+    border: 1px solid #bce6c6;
+}
+
+.alert-danger {
+    background-color: #fbeae9;
+    color: #9f2416;
+    border: 1px solid #f2bcba;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+}
+
 /* ==========================================================================
    FOOTER (PIED DE PAGE)
    3 éléments positionnés à égale distance : Logo, Navigation et Communauté,
@@ -1120,6 +1201,328 @@ a {
 }
 
 /* ==========================================================================
+   MODULE : FILTRES DU CATALOGUE DE RECETTES
+   Structure de la barre de recherche, des sélecteurs de filtres (temps,
+   difficulté, catégorie, favoris) et des badges de filtres actifs
+   ========================================================================== */
+.recipes-filter-section {
+    margin-bottom: 2.5rem;
+}
+
+.filter-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem 2.5rem;
+    border: 1px solid var(--sand);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Ligne 1 : Barre de recherche textuelle globale */
+.filter-search-row {
+    width: 100%;
+}
+
+.filter-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.filter-search-box .filter-icon {
+    position: absolute;
+    left: 1.2rem;
+    font-size: 1.1rem;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.filter-input-search {
+    width: 100%;
+    padding: 0.95rem 1.2rem 0.95rem 3.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: var(--text-dark);
+    background-color: var(--cream);
+    border: 1.5px solid var(--sand);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.filter-input-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(163, 121, 93, 0.15);
+}
+
+/* Ligne 2 : Grille responsive des menus déroulants de filtrage */
+.filter-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.filter-label {
+    font-family: 'Copse', serif;
+    font-size: 0.9rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.filter-select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.92rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-dark);
+    background-color: var(--cream);
+    border: 1.5px solid var(--sand);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--white);
+}
+
+/* Ligne 3 : Ligne d'actions (Favoris & Boutons) */
+.filter-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--sand-light);
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-likes-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.filter-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.filter-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.filter-checkbox-text {
+    font-weight: 600;
+}
+
+.filter-likes-disabled {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    background: var(--sand-light);
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
+}
+
+.filter-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-left: auto;
+}
+
+/* ==========================================================================
+   MODULE : STATISTIQUES & BADGES DE FILTRES ACTIFS
+   ========================================================================== */
+.recipes-results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.results-count {
+    font-size: 1.05rem;
+    color: var(--primary-dark);
+    font-family: 'Copse', serif;
+}
+
+.results-page-indicator {
+    color: var(--text-muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.active-filters-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.active-filters-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.filter-badge {
+    background: var(--sand);
+    color: var(--primary-dark);
+    padding: 0.3rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: var(--transition);
+}
+
+.filter-badge:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.filter-badge-heart {
+    background: #fbeae9;
+    color: #c93b2b;
+}
+
+.filter-badge-heart:hover {
+    background: #c93b2b;
+    color: var(--white);
+}
+
+/* ==========================================================================
+   COMPOSANTS DE CARTE RECETTE SPÉCIFIQUES
+   ========================================================================== */
+.recipe-card-liked-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: var(--sand);
+}
+
+.recipe-card-action {
+    margin-top: 1.2rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* ==========================================================================
+   MODULE : PAGINATION DES RECETTES
+   Boutons précédent/suivant, numéros de page actifs et survol
+   ========================================================================== */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 3.5rem 0 2rem;
+}
+
+.pagination-list {
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    gap: 0.4rem;
+    padding: 0.5rem 0.8rem;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--sand);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pagination-item {
+    display: flex;
+}
+
+.pagination-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 0.9rem;
+    border-radius: var(--radius-sm);
+    font-family: 'Copse', serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: transparent;
+    transition: var(--transition);
+}
+
+.pagination-link:hover:not(.pagination-disabled):not(.pagination-current) {
+    background: var(--sand-light);
+    color: var(--accent);
+}
+
+.pagination-current {
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+    cursor: default;
+}
+
+.pagination-disabled {
+    color: var(--text-muted);
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.pagination-prev, .pagination-next {
+    font-weight: 500;
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN (MEDIA QUERIES)
    Adaptations pour tablettes et mobiles
    ========================================================================== */
@@ -1200,11 +1603,42 @@ a {
     .recipe-card-box {
         padding: 2rem 1.5rem;
     }
+
+    .filter-controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-card {
+        padding: 1.5rem;
+    }
 }
 
 @media (max-width: 650px) {
     .hero-title {
         font-size: 2.5rem;
     }
->>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
+
+    .filter-controls-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-buttons .btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .recipes-results-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

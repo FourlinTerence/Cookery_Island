@@ -2,49 +2,167 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Recipe;
+use App\Entity\User;
+use App\Form\CommentType;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * RecipeController — Contrôleur pour l'affichage des recettes culinaires.
+ * RecipeController — Contrôleur gérant l'exploration et le détail des recettes.
  *
- * Gère la page de détail d'une recette : chargement depuis la base de données
- * via Doctrine, et rendu du template Twig avec toutes les informations associées
- * (ingrédients, commentaires, auteur, catégorie…).
+ * Responsabilités :
+ * - Catalogue général des recettes avec pagination (9 par page) et filtres avancés :
+ *   temps de préparation+cuisson (rapide/long), difficulté, likes (si connecté), catégorie.
+ * - Fiche détaillée d'une recette avec ingrédients, étapes et commentaires.
  */
-#[Route('/recette', name: 'app_recipe_')]
+#[Route(name: 'app_recipe_')]
 final class RecipeController extends AbstractController
 {
     /**
-     * Page de détail d'une recette, identifiée par son ID en base de données.
-     *
-     * L'entité Recipe est chargée via le RecipeRepository Doctrine.
-     * Si l'ID n'existe pas, une page 404 est retournée.
-     *
-     * @param int              $id         Identifiant de la recette en base
-     * @param RecipeRepository $repository Repository Doctrine injecté par autowiring
+     * Nombre maximal de recettes affichées par page dans le catalogue.
      */
-    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'])]
-    public function show(int $id, RecipeRepository $repository): Response
-    {
-        // --- Chargement de la recette depuis la base de données ---
-        // On charge également les relations (category, author, recipeIngredients,
-        // comments) via le repository pour éviter les requêtes N+1.
-        $recipe = $repository->find($id);
+    private const int RECIPES_PER_PAGE = 9;
 
-        // Si la recette n'existe pas, on lève une 404
+    /**
+     * Page catalogue présentant l'ensemble des recettes culinaires avec pagination et filtres.
+     *
+     * Filtres supportés via les paramètres de requête GET :
+     * - `search` : recherche textuelle sur le titre ou la description
+     * - `category` : filtrage par catégorie culinaire (slug ou identifiant)
+     * - `duration` : filtrage par temps total (addition de prepTime + cookTime) :
+     *     'fast' => ≤ 40 min
+     *     'long' => > 40 min
+     * - `difficulty` : filtrage par niveau de difficulté ('Très facile', 'Facile', 'Moyen', 'Difficile')
+     * - `liked` : 1 ou true pour afficher uniquement les recettes favorites de l'utilisateur connecté
+     * - `sort` : ordre de tri ('newest', 'oldest', 'prep_asc', 'prep_desc', 'title_asc')
+     * - `page` : numéro de page pour la pagination (défaut : 1)
+     *
+     * @param Request            $request            Requête HTTP entrante
+     * @param RecipeRepository   $recipeRepository   Repository pour la sélection filtrée et paginée
+     * @param CategoryRepository $categoryRepository Repository pour alimenter le sélecteur de catégories
+     */
+    #[Route('/recettes', name: 'index', methods: ['GET'])]
+    public function index(
+        Request $request,
+        RecipeRepository $recipeRepository,
+        CategoryRepository $categoryRepository
+    ): Response {
+        // --- 1. Récupération et normalisation du numéro de page ---
+        $page = max(1, $request->query->getInt('page', 1));
+
+        // --- 2. Extraction des filtres depuis la requête GET ---
+        $filters = [
+            'search'     => trim((string)$request->query->get('search', '')),
+            'category'   => $request->query->get('category'),
+            'duration'   => $request->query->get('duration'),
+            'difficulty' => $request->query->get('difficulty'),
+            'liked'      => $request->query->getBoolean('liked'),
+            'sort'       => (string)$request->query->get('sort', 'newest'),
+        ];
+
+        // Utilisateur connecté (si présent) pour le filtre par favoris / likes
+        $user = $this->getUser();
+        $currentUser = $user instanceof User ? $user : null;
+
+        // --- 3. Exécution de la requête paginée via le Repository ---
+        $paginator = $recipeRepository->findPaginatedRecipes(
+            filters: $filters,
+            page: $page,
+            limit: self::RECIPES_PER_PAGE,
+            currentUser: $currentUser
+        );
+
+        $totalRecipes = count($paginator);
+        $totalPages   = max(1, (int)ceil($totalRecipes / self::RECIPES_PER_PAGE));
+
+        // Si la page demandée dépasse le total existant (et qu'il y a des résultats), on borne
+        if ($page > $totalPages && $totalRecipes > 0) {
+            $page = $totalPages;
+        }
+
+        // --- 4. Données auxiliaires pour alimenter les menus déroulants de filtrage ---
+        $categories = $categoryRepository->findBy([], ['name' => 'ASC']);
+        $difficulties = ['Très facile', 'Facile', 'Moyen', 'Difficile'];
+
+        return $this->render('recipe/index.html.twig', [
+            'recipes'      => $paginator,
+            'currentPage'  => $page,
+            'totalPages'   => $totalPages,
+            'totalRecipes' => $totalRecipes,
+            'limit'        => self::RECIPES_PER_PAGE,
+            'filters'      => $filters,
+            'categories'   => $categories,
+            'difficulties' => $difficulties,
+        ]);
+    }
+
+    /**
+     * Page de détail d'une recette, avec liste des ingrédients, étapes de préparation
+     * et espace de commentaires dynamiques persistés en base de données.
+     *
+     * La rédaction de commentaire nécessite d'être connecté :
+     * - L'auteur est automatiquement l'utilisateur authentifié (sécurisation anti-usurpation)
+     * - Le commentaire est persisté en base via l'EntityManager
+     *
+     * @param int                    $id               Identifiant de la recette en base
+     * @param Request                $request          Requête HTTP (capture de la soumission du commentaire)
+     * @param RecipeRepository       $recipeRepository Repository Doctrine injecté par autowiring
+     * @param EntityManagerInterface $entityManager    Gestionnaire d'entités pour l'insertion en base
+     */
+    #[Route('/recette/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function show(
+        int $id,
+        Request $request,
+        RecipeRepository $recipeRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        // Chargement de la recette avec ses dépendances
+        $recipe = $recipeRepository->find($id);
+
         if (!$recipe instanceof Recipe) {
-            throw new NotFoundHttpException(sprintf('Recette #%d introuvable.', $id));
+            throw new NotFoundHttpException(sprintf('La recette #%d est introuvable.', $id));
+        }
+
+        // --- Gestion du formulaire d'ajout de commentaire (si utilisateur connecté) ---
+        $commentForm = null;
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Association automatique avec l'utilisateur connecté et la recette consultée
+                $comment->setAuthor($user);
+                $comment->setRecipe($recipe);
+                $comment->setCreatedAt(new \DateTimeImmutable());
+
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre commentaire a été publié avec succès !');
+
+                return $this->redirectToRoute('app_recipe_show', [
+                    'id' => $recipe->getId(),
+                    '_fragment' => 'commentaires',
+                ]);
+            }
+
+            $commentForm = $form->createView();
         }
 
         return $this->render('recipe/show.html.twig', [
-            // On passe l'entité Recipe directement au template.
-            // Twig accèdera aux données via les getters : recipe.title, recipe.author.username, etc.
-            'recipe' => $recipe,
+            'recipe'      => $recipe,
+            'commentForm' => $commentForm,
         ]);
     }
 }
