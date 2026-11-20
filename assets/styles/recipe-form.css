@@ -1,0 +1,295 @@
+/**
+ * =============================================================================
+ * Cookery Island — Feuille de style du formulaire de publication de recette
+ * Fichier : assets/styles/recipe-form.css
+ *
+ * Conforme à la charte graphique officielle :
+ * - Polices : Calistoga (Titre principal), Copse (En-têtes de section), Montserrat (Champs & textes)
+ * - Couleurs : Crème (#faf7f2), Sable (#e8e2da), Caramel chaud (#a3795d), Accent orange (#d97736)
+ * =============================================================================
+ */
+
+/* =============================================================================
+   1. CONTENEUR PRINCIPAL DU FORMULAIRE
+   ============================================================================= */
+.recipe-form-container {
+    max-width: 960px;
+    margin: 0 auto 4rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Carte principale enveloppant le formulaire */
+.recipe-form-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--sand);
+    padding: 3rem 3.5rem;
+}
+
+@media (max-width: 768px) {
+    .recipe-form-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* =============================================================================
+   2. EN-TÊTE DU FORMULAIRE ET BADGE AUTEUR
+   ============================================================================= */
+.recipe-form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--sand-light);
+}
+
+.recipe-form-header h2 {
+    font-family: 'Copse', serif;
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.6rem;
+}
+
+.recipe-form-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* Badge rappelant le profil publiant la recette */
+.recipe-form-author-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--sand-light);
+    border: 1px solid var(--sand);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    margin-top: 1.2rem;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+}
+
+/* =============================================================================
+   3. SECTIONS THÉMATIQUES DU FORMULAIRE (FIELDSETS / BLOCS)
+   ============================================================================= */
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--sand-light);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
+}
+
+.form-section-title {
+    font-family: 'Copse', serif;
+    font-size: 1.3rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.form-section-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* =============================================================================
+   4. GRILLES ET CHAMPS DE FORMULAIRE
+   ============================================================================= */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+@media (max-width: 900px) {
+    .form-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid-2,
+    .form-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Groupe de champ standard */
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1.3rem;
+}
+
+/* Labels stylisés */
+.form-field-label {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-field-label .required-mark {
+    color: var(--accent);
+    margin-left: 0.25rem;
+}
+
+/* Inputs textuels, numériques et sélecteurs */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    border: 1.5px solid var(--sand);
+    border-radius: var(--radius-sm);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background-color: var(--cream);
+    transition: var(--transition);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(163, 121, 93, 0.15);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+/* Aide textuelle sous les champs */
+.form-field-help {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* =============================================================================
+   5. CHAMP D'UPLOAD D'ILLUSTRATION / PHOTO
+   ============================================================================= */
+.file-upload-box {
+    border: 2px dashed var(--primary-light);
+    border-radius: var(--radius-sm);
+    background-color: var(--cream);
+    padding: 1.8rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.file-upload-box:hover {
+    border-color: var(--accent);
+    background-color: var(--white);
+}
+
+.file-upload-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-file-input {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+/* =============================================================================
+   6. GESTION DES ERREURS DE VALIDATION SYMFONY
+   ============================================================================= */
+.form-field-errors {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
+}
+
+.form-field-errors li,
+.form-error-message {
+    font-size: 0.84rem;
+    color: #9f2416;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.form-field-errors li::before {
+    content: "⚠️";
+    font-size: 0.9rem;
+}
+
+/* =============================================================================
+   7. ZONE DES BOUTONS D'ACTION (VALIDATION & ANNULATION)
+   ============================================================================= */
+.form-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sand-light);
+    flex-wrap: wrap;
+}
+
+.btn-form-cancel {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--sand);
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.btn-form-cancel:hover {
+    background-color: var(--sand-light);
+    color: var(--text-dark);
+    border-color: var(--primary-light);
+}
+
+.btn-form-submit {
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem 2.2rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(217, 119, 54, 0.25);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-form-submit:hover {
+    background-color: #be5f22;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(217, 119, 54, 0.35);
+}

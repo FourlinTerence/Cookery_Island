@@ -1,0 +1,203 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publier une recette - Cookery Island{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# Feuille de style dédiée pour le formulaire de recette (séparation stricte CSS) #}
+    <link rel="stylesheet" href="{{ asset('styles/recipe-form.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# =========================================================================
+       1. HERO BANNER : PUBLIER UNE RECETTE
+       Bannière d'en-tête distinctive dans le ton chaleureux de Cookery Island
+       ========================================================================= #}
+    <section class="hero-banner recipe-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Partagez votre Recette</h1>
+            <p class="hero-subtitle">
+                Faites voyager la communauté avec vos secrets de cuisine, vos épices favorites et vos tours de main créoles.
+            </p>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <div class="recipe-form-container">
+
+            {# --- Messages flash d'information ou d'erreur --- #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label == 'error' ? 'danger' : label }}" role="alert">
+                        <span class="alert-icon">
+                            {% if label == 'success' %}✅{% elseif label == 'danger' or label == 'error' %}⚠️{% else %}ℹ️{% endif %}
+                        </span>
+                        <span class="alert-text">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {# =================================================================
+               2. CARTE DU FORMULAIRE SYMFONY
+               Formulaire complet avec rendu Twig modulaire et accessible
+               ================================================================= #}
+            <div class="recipe-form-card">
+
+                {# En-tête informatif et badge auteur #}
+                <div class="recipe-form-header">
+                    <h2>Nouvelle Inspiration Culinaire</h2>
+                    <p>Remplissez les détails ci-dessous pour publier votre création sur le blog.</p>
+                    {% if app.user %}
+                        <div class="recipe-form-author-badge">
+                            <span>👨‍🍳 Auteur :</span>
+                            <strong>{{ app.user.username ?? app.user.userIdentifier }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {{ form_start(form, {
+                    'attr': {
+                        'class': 'recipe-submission-form',
+                        'novalidate': 'novalidate'
+                    }
+                }) }}
+
+                    {# Erreurs globales du formulaire (si présentes) #}
+                    {{ form_errors(form) }}
+
+                    {# -------------------------------------------------------------
+                       SECTION 1 : INFORMATIONS GÉNÉRALES DU PLAT
+                       ------------------------------------------------------------- #}
+                    <section class="form-section">
+                        <h3 class="form-section-title">
+                            <span>🍳</span>
+                            <span>1. Présentation générale</span>
+                        </h3>
+                        <p class="form-section-desc">Donnez un titre gourmand et choisissez la catégorie adaptée.</p>
+
+                        <div class="form-grid-2">
+                            {# Titre de la recette #}
+                            <div class="form-field-group">
+                                {{ form_label(form.title, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.title) }}
+                                {{ form_errors(form.title) }}
+                            </div>
+
+                            {# Catégorie culinaire #}
+                            <div class="form-field-group">
+                                {{ form_label(form.category, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.category) }}
+                                {{ form_errors(form.category) }}
+                            </div>
+                        </div>
+
+                        {# Description courte / accroche #}
+                        <div class="form-field-group">
+                            {{ form_label(form.description, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                            {{ form_widget(form.description) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </section>
+
+                    {# -------------------------------------------------------------
+                       SECTION 2 : CARACTÉRISTIQUES DE PRÉPARATION
+                       ------------------------------------------------------------- #}
+                    <section class="form-section">
+                        <h3 class="form-section-title">
+                            <span>⏱️</span>
+                            <span>2. Temps et caractéristiques</span>
+                        </h3>
+                        <p class="form-section-desc">Indiquez les durées estimées, le nombre de convives et le niveau de difficulté.</p>
+
+                        <div class="form-grid-4">
+                            {# Temps de préparation #}
+                            <div class="form-field-group">
+                                {{ form_label(form.prepTime, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.prepTime) }}
+                                {{ form_errors(form.prepTime) }}
+                            </div>
+
+                            {# Temps de cuisson #}
+                            <div class="form-field-group">
+                                {{ form_label(form.cookTime, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.cookTime) }}
+                                {{ form_errors(form.cookTime) }}
+                            </div>
+
+                            {# Portions #}
+                            <div class="form-field-group">
+                                {{ form_label(form.servings, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.servings) }}
+                                {{ form_errors(form.servings) }}
+                            </div>
+
+                            {# Difficulté #}
+                            <div class="form-field-group">
+                                {{ form_label(form.difficulty, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.difficulty) }}
+                                {{ form_errors(form.difficulty) }}
+                            </div>
+                        </div>
+                    </section>
+
+                    {# -------------------------------------------------------------
+                       SECTION 3 : ÉTAPES DE PRÉPARATION (INSTRUCTIONS)
+                       ------------------------------------------------------------- #}
+                    <section class="form-section">
+                        <h3 class="form-section-title">
+                            <span>📝</span>
+                            <span>3. Instructions de réalisation</span>
+                        </h3>
+                        <p class="form-section-desc">Détaillez le pas à pas pour que vos lecteurs puissent réussir votre recette à coup sûr.</p>
+
+                        <div class="form-field-group">
+                            {{ form_label(form.instructions, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                            {{ form_widget(form.instructions) }}
+                            {% if form.instructions.vars.help is defined and form.instructions.vars.help %}
+                                <span class="form-field-help">{{ form.instructions.vars.help }}</span>
+                            {% endif %}
+                            {{ form_errors(form.instructions) }}
+                        </div>
+                    </section>
+
+                    {# -------------------------------------------------------------
+                       SECTION 4 : PHOTOGRAPHIE DU PLAT
+                       ------------------------------------------------------------- #}
+                    <section class="form-section">
+                        <h3 class="form-section-title">
+                            <span>📸</span>
+                            <span>4. Illustration du plat</span>
+                        </h3>
+                        <p class="form-section-desc">Une belle photo mettra votre création en valeur dans la galerie d'accueil et le catalogue.</p>
+
+                        <div class="file-upload-box">
+                            <span class="file-upload-icon" aria-hidden="true">📷</span>
+                            <div class="form-field-group">
+                                {{ form_label(form.imageFile, null, {'label_attr': {'class': 'form-field-label'}}) }}
+                                {{ form_widget(form.imageFile) }}
+                                {% if form.imageFile.vars.help is defined and form.imageFile.vars.help %}
+                                    <span class="form-field-help">{{ form.imageFile.vars.help }}</span>
+                                {% endif %}
+                                {{ form_errors(form.imageFile) }}
+                            </div>
+                        </div>
+                    </section>
+
+                    {# -------------------------------------------------------------
+                       SECTION 5 : BOUTONS D'ACTION
+                       ------------------------------------------------------------- #}
+                    <div class="form-actions-row">
+                        <a href="{{ path('app_recipe_index') }}" class="btn-form-cancel">
+                            Annuler
+                        </a>
+                        <button type="submit" class="btn-form-submit">
+                            ✨ Publier ma recette
+                        </button>
+                    </div>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

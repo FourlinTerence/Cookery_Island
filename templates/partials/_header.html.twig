@@ -33,7 +33,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="#" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Dashboard</a>
                     {% endif %}
-                    <a href="#" class="btn btn-accent">+ Publier</a>
+                    <a href="{{ path('app_recipe_new') }}" class="btn btn-accent">+ Publier</a>
                     <a href="{{ path('app_logout') }}" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="btn btn-outline">Connexion</a>

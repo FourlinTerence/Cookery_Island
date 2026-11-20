@@ -6,14 +6,17 @@ use App\Entity\Comment;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * RecipeController — Contrôleur gérant l'exploration et le détail des recettes.
@@ -101,6 +104,74 @@ final class RecipeController extends AbstractController
             'filters'      => $filters,
             'categories'   => $categories,
             'difficulties' => $difficulties,
+        ]);
+    }
+
+    /**
+     * Page de création et publication d'une nouvelle recette culinaire.
+     *
+     * L'accès est strictement réservé aux membres authentifiés :
+     * - L'auteur est automatiquement l'utilisateur connecté (sécurité anti-usurpation)
+     * - Le slug est automatiquement calculé et normalisé depuis le titre de la recette
+     * - L'image transmise est validée, sécurisée et stockée dans assets/images/
+     *
+     * @param Request                $request       Requête HTTP entrante (données du formulaire)
+     * @param EntityManagerInterface $entityManager Gestionnaire de persistance Doctrine
+     * @param SluggerInterface       $slugger       Service de translittération pour slug et noms de fichiers
+     */
+    #[Route('/recette/publier', name: 'new', methods: ['GET', 'POST'])]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger
+    ): Response {
+        // --- 1. Contrôle d'authentification ---
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            $this->addFlash('error', 'Vous devez être connecté pour publier une recette sur Cookery Island.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        // --- 2. Initialisation de l'entité et création du formulaire ---
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        // --- 3. Traitement de la soumission valide ---
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Attribution automatique de l'auteur et de l'horodatage de création
+            $recipe->setAuthor($user);
+            $recipe->setCreatedAt(new \DateTimeImmutable());
+
+            // Génération d'un slug normalisé (URL-friendly)
+            $slug = strtolower((string) $slugger->slug($recipe->getTitle()));
+            $recipe->setSlug($slug);
+
+            // Traitement optionnel de l'image de couverture
+            /** @var UploadedFile|null $imageFile */
+            $imageFile = $form->get('imageFile')->getData();
+            if ($imageFile instanceof UploadedFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = strtolower((string) $slugger->slug($originalFilename));
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                $destination = $this->getParameter('kernel.project_dir') . '/assets/images';
+                $imageFile->move($destination, $newFilename);
+
+                $recipe->setImageName($newFilename);
+            }
+
+            // Persistance Doctrine
+            $entityManager->persist($recipe);
+            $entityManager->flush();
+
+            $this->addFlash('success', sprintf('Félicitations ! Votre recette « %s » a été publiée avec succès.', $recipe->getTitle()));
+
+            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()]);
+        }
+
+        return $this->render('recipe/new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

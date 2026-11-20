@@ -104,59 +104,53 @@
             {% else %}
                 {# Cas B : Recettes de démonstration pour vitrine initiale #}
                 <div class="recipes-grid">
-                    {# Carte 1 : Cari camarons #}
+                    {# Carte 1 : Cari camarons (vitrine — pas de recette en base, liens désactivés) #}
                     <article class="recipe-card">
-                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                        <span class="recipe-card-media">
                             <img src="{{ asset('images/cari-camarons-réunionnais.jpg') }}" alt="Cari Camarons Réunionnais" class="recipe-card-img">
                             <span class="recipe-card-category">Plat Réunionnais</span>
-                        </a>
+                        </span>
                         <div class="recipe-card-body">
-                            <h3 class="recipe-card-title">
-                                <a href="{{ path('app_recipe_show') }}">Cari Camarons Traditionnel</a>
-                            </h3>
+                            <h3 class="recipe-card-title">Cari Camarons Traditionnel</h3>
                             <p class="recipe-card-desc">Le grand classique réunionnais aux camarons mijotés avec tomates, curcuma frais, gingembre et thym du jardin.</p>
                             <div class="recipe-card-meta">
                                 <span class="recipe-meta-item">⏱️ 45 min</span>
                                 <span class="recipe-meta-item">⭐ Moyen</span>
-                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                                <span class="btn btn-primary btn-sm disabled">Voir la recette</span>
                             </div>
                         </div>
                     </article>
 
-                    {# Carte 2 : Rougail saucisse #}
+                    {# Carte 2 : Rougail saucisse (vitrine — pas de recette en base, liens désactivés) #}
                     <article class="recipe-card">
-                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                        <span class="recipe-card-media">
                             <img src="{{ asset('images/rougail-saucisse.jpg') }}" alt="Rougail Saucisse" class="recipe-card-img">
                             <span class="recipe-card-category">Plat Typique</span>
-                        </a>
+                        </span>
                         <div class="recipe-card-body">
-                            <h3 class="recipe-card-title">
-                                <a href="{{ path('app_recipe_show') }}">Rougail Saucisse Fumé</a>
-                            </h3>
+                            <h3 class="recipe-card-title">Rougail Saucisse Fumé</h3>
                             <p class="recipe-card-desc">L'incontournable rougail cuisiné avec des saucisses fumées, oignons croustillants et une pointe de piment oiseau.</p>
                             <div class="recipe-card-meta">
                                 <span class="recipe-meta-item">⏱️ 35 min</span>
                                 <span class="recipe-meta-item">⭐ Facile</span>
-                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                                <span class="btn btn-primary btn-sm disabled">Voir la recette</span>
                             </div>
                         </div>
                     </article>
 
-                    {# Carte 3 : Fondant au chocolat #}
+                    {# Carte 3 : Fondant au chocolat (vitrine — pas de recette en base, liens désactivés) #}
                     <article class="recipe-card">
-                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                        <span class="recipe-card-media">
                             <img src="{{ asset('images/chocolateCakeaRogner.jpg') }}" alt="Gâteau au Chocolat Moelleux" class="recipe-card-img">
                             <span class="recipe-card-category">Dessert Gourmand</span>
-                        </a>
+                        </span>
                         <div class="recipe-card-body">
-                            <h3 class="recipe-card-title">
-                                <a href="{{ path('app_recipe_show') }}">Fondant au Chocolat Noir</a>
-                            </h3>
+                            <h3 class="recipe-card-title">Fondant au Chocolat Noir</h3>
                             <p class="recipe-card-desc">Un cœur coulant irrésistible avec du chocolat noir intense et une pointe de fleur de sel.</p>
                             <div class="recipe-card-meta">
                                 <span class="recipe-meta-item">⏱️ 25 min</span>
                                 <span class="recipe-meta-item">⭐ Très facile</span>
-                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                                <span class="btn btn-primary btn-sm disabled">Voir la recette</span>
                             </div>
                         </div>
                     </article>
