@@ -1,3 +1,1210 @@
+<<<<<<< HEAD
+/**
+ * Cookery Island - Feuille de styles principale (app.css)
+ *
+ * Définition des variables graphiques (charte officielle Cookery Island) :
+ * - Sable / Crème : #E8E2DA
+ * - Caramel / Brun chaud : #A3795D
+ * - Noir : #000000
+ * - Blanc : #FFFFFF
+ *
+ * Typographies officielles :
+ * - H1 : Calistoga
+ * - H2 / H3 : Copse
+ * - Corps & navigation : Montserrat
+ */
+
+:root {
+    /* Palette de couleurs */
+    --color-sand: #E8E2DA;
+    --color-caramel: #A3795D;
+    --color-caramel-dark: #875F45;
+    --color-caramel-light: #B88E72;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-text-dark: #201A16;
+    --color-text-muted: #6B6259;
+    --color-border: #D1C5B6;
+    --color-disabled: #A8A199;
+
+    /* Typographies */
+    --font-h1: 'Calistoga', serif;
+    --font-heading: 'Copse', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+/* Réinitialisation de base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body.site-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    background-color: var(--color-caramel); /* Fond marron caramel identique à la maquette de l'article */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   En-tête de page (Header & Navigation)
+   ========================================================================== */
+
+.site-header {
+    background-color: var(--color-sand);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+=======
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&family=Copse&family=Montserrat:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --primary: #a3795d;
+    --primary-dark: #7a543b;
+    --primary-light: #c2997d;
+    --cream: #faf7f2;
+    --sand: #e8e2da;
+    --sand-light: #f2ede6;
+    --text-dark: #2c2523;
+    --text-muted: #706560;
+    --accent: #d97736;
+    --white: #ffffff;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --shadow-soft: 0 8px 24px rgba(44, 37, 35, 0.08);
+    --shadow-hover: 0 14px 32px rgba(44, 37, 35, 0.14);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: skyblue;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--cream);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1, .font-title {
+    font-family: 'Calistoga', cursive;
+    font-weight: 400;
+}
+
+h2, h3, h4, .font-heading {
+    font-family: 'Copse', serif;
+    font-weight: 400;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   NAVIGATION / HEADER
+   Barre de navigation principale, logo, liens et boutons d'action utilisateur
+   ========================================================================== */
+.navbar {
+    background-color: var(--sand);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+<<<<<<< HEAD
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-item {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-black);
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Style de l'onglet actif (page courante) */
+.nav-item-active {
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--color-black);
+}
+
+/* Respect de la règle stricte : griser les fonctionnalités non encore prêtes */
+.nav-item-disabled {
+    color: var(--color-disabled);
+    cursor: not-allowed;
+    opacity: 0.65;
+    user-select: none;
+}
+
+.header-profile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-profile-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   Bannière d'en-tête (Ustensiles de cuisine)
+   ========================================================================== */
+
+.banner-section {
+    width: 100%;
+    min-height: 160px;
+    background-image: url('../images/backgroundHeader.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.banner-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.banner-title {
+    font-family: var(--font-h1);
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--color-black);
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Zone de contenu principal
+   ========================================================================== */
+
+.page-main-wrapper {
+    flex: 1;
+=======
+.navbar-container {
+    max-width: 1560px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Bloc marque : logo calé à gauche */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+/* Logo agrandi dans la barre de navigation */
+.navbar-logo {
+    height: 95px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+/* Titre Cookery Island décalé vers la droite d'environ 10% de la largeur */
+.navbar-title {
+    font-family: 'Calistoga', cursive;
+    font-size: 2.1rem;
+    color: var(--primary-dark);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-left: clamp(2.5rem, 10vw, 10rem);
+}
+
+/* Liens de navigation décalés vers la droite d'environ 25% de la largeur */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    list-style: none;
+    margin-left: clamp(3rem, 25%, 26rem);
+}
+
+.nav-link {
+    font-family: 'Copse', serif;
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    position: relative;
+    padding: 0.4rem 0;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--accent);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* Zone d'authentification calée sur l'extrémité droite */
+.navbar-auth {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-left: auto;
+}
+
+/* ==========================================================================
+   BOUTONS & COMPOSANTS D'ACTION
+   Styles uniformes pour les boutons (primaire, contour, accentuation)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.35rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(163, 121, 93, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
+.btn-accent:hover {
+    background-color: #bd6024;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 119, 54, 0.35);
+}
+
+.btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   HERO BANNER
+   Bannière d'accroche principale avec image d'arrière-plan brute (sans filtre),
+   ombres portées renforcées pour garantir la lisibilité parfaite du texte
+   ========================================================================== */
+.hero-banner {
+    position: relative;
+    background: url('../images/backgroundHeader.jpg') center/cover no-repeat;
+    color: var(--white);
+    text-align: center;
+    padding: 5rem 1.5rem;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.8rem;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.hero-subtitle {
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   CONTENEUR PRINCIPAL
+   Zone de contenu étalée et centrée pour aérer la lecture
+   ========================================================================== */
+.main-content {
+    max-width: 1560px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 3.5rem 2rem;
+    flex: 1;
+}
+
+/* ==========================================================================
+   SECTION PRÉSENTATION & CHEF
+   Carte de bienvenue avec portrait du chef et résumé des valeurs
+   ========================================================================== */
+.chef-section {
+    background-color: var(--sand-light);
+    border-radius: var(--radius-lg);
+    padding: 3.5rem 4rem;
+    margin-bottom: 4.5rem;
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.chef-image-wrapper {
+    position: relative;
+    text-align: center;
+}
+
+.chef-image {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hover);
+    object-fit: cover;
+    background: var(--sand);
+    transition: var(--transition);
+}
+
+.chef-image:hover {
+    transform: scale(1.02);
+}
+
+.chef-badge {
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.chef-presentation {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.chef-presentation h2 {
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+}
+
+.chef-presentation p {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+.chef-highlights {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.highlight-item {
+    background: var(--white);
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.highlight-icon {
+    font-size: 1.3rem;
+}
+
+/* ==========================================================================
+   GRILLE DES RECETTES & CARTES
+   Disposition fluide des cartes avec vignettes, badges et métadonnées
+   ========================================================================== */
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+}
+
+.recipe-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
+    display: flex;
+    flex-direction: column;
+}
+
+<<<<<<< HEAD
+/* ==========================================================================
+   Pied de page (Footer)
+   ========================================================================== */
+
+.site-footer {
+    background-color: var(--color-sand);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 16px 24px;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-logo-box {
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-copyright {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-black);
+    text-align: center;
+    flex: 1;
+}
+
+/* ==========================================================================
+   Adaptabilité mobile (Responsive)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .header-nav {
+        gap: 20px;
+    }
+
+    .nav-item {
+        font-size: 0.95rem;
+    }
+
+    .banner-title {
+        font-size: 2.1rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+=======
+.recipe-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+
+.recipe-card-media {
+    position: relative;
+    height: 220px;
+    background-color: var(--sand);
+    overflow: hidden;
+}
+
+.recipe-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.recipe-card:hover .recipe-card-img {
+    transform: scale(1.05);
+}
+
+.recipe-card-category {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(44, 37, 35, 0.8);
+    backdrop-filter: blur(4px);
+    color: var(--white);
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.recipe-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.recipe-card-title {
+    font-size: 1.35rem;
+    color: var(--text-dark);
+    margin-bottom: 0.6rem;
+}
+
+.recipe-card-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    flex: 1;
+}
+
+.recipe-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sand);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.recipe-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* ==========================================================================
+   ÉTAT VIDE / INVITATION À PUBLIER
+   Affiché lorsque la base de données ne contient pas encore de recettes
+   ========================================================================== */
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+.empty-state-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.6rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   BANNIÈRE INSTAGRAM
+   Section pleine largeur incitant à suivre le blog sur Instagram,
+   reprenant le visuel d'ustensiles de la maquette avec un bouton interactif
+   ========================================================================== */
+.instagram-banner {
+    position: relative;
+    background: url('../images/backgroundHeader.jpg') center/cover no-repeat;
+    padding: 4.5rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
+}
+
+.instagram-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.instagram-title {
+    font-family: 'Copse', serif;
+    font-size: 2.3rem;
+    color: var(--text-dark);
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Bouton circulaire Instagram identique à la pastille de la maquette */
+.instagram-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: #dfb2b2;
+    color: var(--text-dark);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    transition: var(--transition);
+}
+
+.instagram-btn:hover {
+    transform: scale(1.12);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: var(--white);
+    box-shadow: 0 8px 22px rgba(220, 39, 67, 0.35);
+}
+
+.instagram-icon {
+    width: 32px;
+    height: 32px;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   PAGE DÉTAIL D'UNE RECETTE (ARTICLE)
+   Styles de la fiche recette, ingrédients en 2 colonnes, étapes et commentaires
+   ========================================================================== */
+.recipe-content {
+    max-width: 1100px;
+    padding-top: 2.5rem;
+}
+
+/* Image principale du plat */
+.recipe-main-media {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.recipe-featured-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Grille de métadonnées de la recette (temps, portions, difficulté) */
+.recipe-meta-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.recipe-meta-box {
+    background-color: var(--white);
+    padding: 1.2rem 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.3rem;
+    border: 1px solid var(--sand);
+}
+
+.meta-box-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.meta-box-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.meta-box-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Blocs de contenu de la recette (ingrédients, étapes, commentaires) */
+.recipe-card-box {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 2.5rem 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Bloc des ingrédients sur 2 colonnes conforme à la maquette */
+.recipe-ingredients-box {
+    background-color: var(--sand-light);
+    border: 1px solid rgba(163, 121, 93, 0.15);
+}
+
+.recipe-box-title {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.ingredients-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.ingredients-list li {
+    position: relative;
+    padding-left: 1.8rem;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+.ingredients-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0.4rem;
+    top: -2px;
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
+/* Blocs d'étapes de préparation */
+.recipe-step-box {
+    border-left: 4px solid var(--primary);
+}
+
+.recipe-step-title {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.recipe-step-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+/* Image intermédiaire d'illustration */
+.recipe-secondary-media {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.recipe-step-img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Section commentaires */
+.recipe-comments-box {
+    border-top: 3px solid var(--primary);
+}
+
+.comments-main-title {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 3rem;
+}
+
+.comment-item {
+    background-color: var(--cream);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--sand);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.comment-avatar {
+    font-size: 1.8rem;
+    width: 44px;
+    height: 44px;
+    background-color: var(--sand);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-author {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.comment-rating {
+    margin-left: auto;
+    font-size: 0.95rem;
+}
+
+.comment-content {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Formulaire d'ajout de commentaire */
+.comment-form-wrapper {
+    background-color: var(--sand-light);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+}
+
+.comment-form-title {
+    font-size: 1.35rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--sand);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: var(--white);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(217, 119, 54, 0.15);
+}
+
+/* ==========================================================================
+   FOOTER (PIED DE PAGE)
+   3 éléments positionnés à égale distance : Logo, Navigation et Communauté,
+   suivis de la barre de copyright en bas de page
+   ========================================================================== */
+.footer {
+    background-color: var(--sand);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 3.5rem 1.5rem 1.5rem;
+    margin-top: auto;
+}
+
+/* Conteneur principal du footer : 3 colonnes réparties à égale distance */
+.footer-container {
+    max-width: 1560px;
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    justify-items: center;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Bloc marque : logo seul et centré dans sa colonne */
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo agrandi dans le footer */
+.footer-logo {
+    height: 145px;
+    width: auto;
+    max-width: 280px;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Colonnes secondaires (Navigation et Communauté) */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-col h4 {
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.4rem;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 2px;
+    background-color: var(--primary-light);
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    padding-left: 4px;
+}
+
+/* Barre inférieure contenant le copyright */
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   Adaptations pour tablettes et mobiles
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .navbar-title {
+        margin-left: 5vw;
+    }
+
+    .navbar-nav {
+        margin-left: 12%;
+    }
+}
+
+@media (max-width: 950px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .navbar-brand {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .navbar-title {
+        margin-left: 0;
+    }
+
+    .navbar-nav {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .navbar-auth {
+        margin-left: 0;
+    }
+
+    .chef-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .chef-image {
+        max-width: 240px;
+    }
+
+    .chef-highlights {
+        justify-content: center;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .footer-col {
+        align-items: center;
+    }
+
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .recipe-meta-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .ingredients-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .recipe-card-box {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
 }

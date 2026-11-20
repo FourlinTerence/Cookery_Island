@@ -4,6 +4,36 @@ This is a Symfony project. Check `composer.json` for the exact Symfony/PHP versi
 in use, and read `symfony.lock` to see which recipes ran. Don't assume Doctrine,
 Twig, API Platform, Messenger, or Lock are installed unless one of those says so.
 
+## Règles Git et Versioning (Strictes)
+
+- **Initialisation** : Si le projet n'est pas encore sous Git, initialiser immédiatement le dépôt avec `git init`.
+- **Commandes autorisées** :
+  - `git status`
+  - `git add` : en commençant **toujours** par le fichier `.gitignore`
+  - `git commit` : avec un message clair et explicatif des modifications apportées
+  - `git push` : autorisé sous réserve de validation préalable par l'utilisateur
+- **Interdictions formelles et sécurité** :
+  - **Interdiction formelle de `git reset`** : ne JAMAIS exécuter de `git reset` (soft, mixed ou hard) sauf si expressément demandé par l'utilisateur.
+  - **Interdiction formelle de supprimer des branches** : Il est strictement interdit de supprimer une branche, qu'elle soit locale ou distante (ne jamais exécuter `git branch -d`, `git branch -D`, `git push <remote> --delete`, etc.).
+  - **Interdiction formelle de suppression complète du projet** : Il est strictement interdit d'effectuer une suppression complète du projet ou de son répertoire.
+- **Commit systématique à chaque modification** : À chaque modification effectuée sur le code ou la configuration, créer un commit Git regroupant les modifications avec un message clair et explicatif des changements apportés.
+- **Validation préalable avant tout Push** : Toujours demander à l'utilisateur : *"Puis-je push les modifications sur GitHub ?"* et attendre sa confirmation avant d'envoyer les commits sur le dépôt distant.
+
+
+## Règles Fonctionnalités et Interface Web (UI)
+
+- **Pas de fonctionnalités non demandées** : Ne JAMAIS ajouter ou implémenter de fonctionnalités qui n'ont pas été expressément demandées par l'utilisateur.
+- **Conseil et validation préalable** : Toujours demander confirmation ou proposer/conseiller les fonctionnalités potentielles à l'utilisateur avant toute implémentation.
+- **Désactivation visuelle (grisé)** : Si une fonctionnalité ou un élément d'interface n'est pas encore fonctionnel ou prêt, il doit obligatoirement être grisé (désactivé / inactif) dans l'interface utilisateur.
+
+## Règles Développement Web et Code Éthique
+
+- **Séparation stricte HTML / CSS / Scripts** : Toujours séparer distinctement les lignes et fichiers de code HTML (templates Twig), CSS (fichiers de styles dédiés) et JavaScript (fichiers scripts / Stimulus dédiés). Ne pas insérer de CSS ou JS en ligne (inline) dans le HTML.
+- **Simplicité et standards courants** : Utiliser les méthodes les plus simples, couramment adoptées par l'écosystème, logiques et faciles à comprendre et maintenir (principe KISS).
+- **Code éthique et propre** : Respecter les bonnes pratiques éthiques de développement : lisibilité, clarté, accessibilité, sans artifices ni complexité inutile.
+- **Concision et intégrité du site** : Éviter au maximum d'écrire du code trop long ou verbeux (privilégier la concision, la modularité et l'essentiel), tout en préservant rigoureusement l'intégrité, la robustesse et le bon fonctionnement du site.
+- **Commentaires et justification de conception** : Ajouter systématiquement des commentaires explicatifs dans le code pour clarifier sa logique et son fonctionnement, et justifier le processus de création et les choix de conception lors des échanges.
+
 ## Ask before generating
 
 If the task doesn't specify, ask rather than guess:
@@ -90,6 +120,16 @@ Symfony's coding standard, the `@Symfony` php-cs-fixer ruleset (a PSR-12-derived
 superset). Run `vendor/bin/php-cs-fixer fix` if `friendsofphp/php-cs-fixer` is
 installed; it isn't part of the skeleton by default.
 
+## Documentation & Code Comments
+
+- Commenter le code de façon claire et pédagogique pour expliquer à quoi servent les blocs :
+  - **PHP / Symfony** : expliciter le rôle des classes, entités, services et méthodes (PHPDoc et commentaires de blocs logiques).
+  - **Twig** : commenter les grandes sections des templates (`{# --- En-tête / Barre de navigation --- #}`, `{# --- Grille des recettes --- #}`, etc.).
+  - **CSS** : structurer les feuilles de styles avec des en-têtes de blocs clairs et commenter le rôle des composants et propriétés clés (Flexbox, Grid, variables, media queries).
+  - **JavaScript** : documenter l'utilité des fonctions, des écouteurs d'événements et de la logique métier.
+- Donner une vue d'ensemble du *pourquoi* et du *comment* pour faciliter la maintenance et la compréhension du projet.
+
+
 ## Discover, don't guess
 
 Framework APIs change between versions and your training data may be stale. Look
@@ -104,3 +144,4 @@ things up in the project instead of relying on memory:
 - Read the installed source and docblocks under `vendor/`.
 - Docs: https://symfony.com/doc/current/ (switch to the version matching
   `composer.json` if it differs).
+xampp

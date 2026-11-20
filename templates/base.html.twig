@@ -1,24 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+        <title>{% block title %}Cookery Island{% endblock %}</title>
+
+        {# Polices officielles définies par la charte graphique : Calistoga (H1), Copse (H2/H3), Montserrat (Corps) #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Copse&family=Montserrat:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+        <link rel="icon" href="{{ asset('images/Logo.Cookery_Island.png') }}">
+
+=======
+        <title>{% block title %}Cookery Island - Blog culinaire & Recettes{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/Logo.Cookery_Island.png') }}">
+        
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
     </head>
+<<<<<<< HEAD
+    <body class="site-body">
+        {# Bloc d'en-tête personnalisable (peut être omis sur les pages de connexion/inscription) #}
+        {% block header %}
+        <header class="site-header">
+            <div class="header-container">
+                <a href="/" class="header-logo-link" title="Cookery Island - Accueil">
+                    <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Logo Cookery Island" class="header-logo">
+                </a>
+
+                <nav class="header-nav" aria-label="Navigation principale">
+                    {# Éléments non encore fonctionnels grisés conformément à la règle stricte de l'interface #}
+                    <span class="nav-item nav-item-disabled" aria-disabled="true" title="Fonctionnalité en cours de développement">Nos recettes</span>
+                    <span class="nav-item nav-item-disabled" aria-disabled="true" title="Fonctionnalité en cours de développement">Cours de cuisine</span>
+                    <a href="{{ path('app_login') }}" class="nav-item nav-item-active" aria-current="page">Connexion</a>
+                </nav>
+
+                <div class="header-profile" title="Espace utilisateur">
+                    <img src="{{ asset('images/profil.png') }}" alt="Icône profil utilisateur" class="header-profile-icon">
+                </div>
+            </div>
+        </header>
+        {% endblock %}
+
+        {# Contenu principal spécifique à chaque page #}
+        <main class="page-main-wrapper">
+            {% block body %}{% endblock %}
+        </main>
+
+        {# Pied de page reprenant fidèlement le template article #}
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-logo-box">
+                    <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Logo Cookery Island" class="footer-logo">
+                </div>
+                <p class="footer-copyright">©Cookery_Island corporation. Tous droits réservés.</p>
+            </div>
+        </footer>
+=======
     <body>
-        {% block body %}{% endblock %}
+        {# =====================================================================
+           BLOC HEADER (EN-TÊTE & NAVIGATION)
+           Définit la barre de navigation du site via un partial réutilisable.
+           Ce bloc peut être surchargé ou désactivé par les templates enfants
+           (ex: pages d'administration, tunnels d'inscription ou modals).
+           ===================================================================== #}
+        {% block header %}
+            {% include 'partials/_header.html.twig' %}
+        {% endblock %}
+
+        {# =====================================================================
+           BLOC MAIN / BODY (CONTENU PRINCIPAL)
+           Zone centrale dynamique spécifique à chaque vue de l'application.
+           ===================================================================== #}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        {# =====================================================================
+           BLOC FOOTER (PIED DE PAGE)
+           Affiche les informations de marque, menus de navigation et copyright.
+           Ce bloc peut être personnalisé ou masqué selon les besoins des pages.
+           ===================================================================== #}
+        {% block footer %}
+            {% include 'partials/_footer.html.twig' %}
+        {% endblock %}
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
     </body>
 </html>
