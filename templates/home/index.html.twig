@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Cookery Island{% endblock %}
+
+{% block body %}
+    {# =========================================================================
+       1. HERO BANNER
+       Bannière d'accueil avec titre principal, sous-titre d'accroche et appel à l'action
+       ========================================================================= #}
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title">Cookery Island</h1>
+            <p class="hero-subtitle">Des saveurs authentiques, le soleil des îles et le plaisir gourmand de cuisiner et partager ensemble.</p>
+            <a href="#recettes" class="btn btn-accent">Découvrir les recettes</a>
+        </div>
+    </section>
+
+    <div class="main-content">
+        {# =====================================================================
+           2. SECTION PRÉSENTATION DU CHEF & HISTOIRE DU BLOG
+           Mise en valeur de l'image du chef réunionnais, description de la passion
+           culinaire et badges d'engagement (saveurs, simplicité, partage)
+           ===================================================================== #}
+        <section class="chef-section" id="presentation">
+            {# Bloc image du chef avec badge superposé #}
+            <div class="chef-image-wrapper">
+                <img src="{{ asset('images/chef reunionnais.jpg') }}" alt="Chef cuisinier réunionnais de Cookery Island" class="chef-image">
+                <span class="chef-badge">Chef & Passion</span>
+            </div>
+
+            {# Texte de présentation et points forts #}
+            <div class="chef-presentation">
+                <h2>Bienvenue chez Cookery Island !</h2>
+                <p>
+                    Ici, nous célébrons la générosité des cuisines créoles, le parfum envoûtant des épices de l'océan Indien et les grands classiques réconfortants. Du cari mijoté au feu de bois aux douceurs pâtissières, chaque recette est une invitation au voyage.
+                </p>
+                <p>
+                    Rejoignez notre communauté de passionnés : découvrez des astuces inédites, partagez vos propres chefs-d'œuvre et échangez vos secrets culinaires avec des gourmets du monde entier.
+                </p>
+                <div class="chef-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🌶️</span>
+                        <span>Épices & Saveurs créoles</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">👨‍🍳</span>
+                        <span>Recettes simples & détaillées</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">❤️</span>
+                        <span>100% Partage & Convivialité</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {# =====================================================================
+           3. SECTION GRILLE DES RECETTES
+           Affiche soit les recettes dynamiques issues de la base de données,
+           soit des cartes d'aperçu vitrine si la base est encore vide.
+           ===================================================================== #}
+        <section id="recettes">
+            <div class="section-header">
+                <h2>Nos Recettes du Moment</h2>
+                <p>Découvrez les pépites culinaires préparées avec amour par nos membres</p>
+            </div>
+
+            {# Cas A : Recettes disponibles en base de données #}
+            {% if recipes is not empty %}
+                <div class="recipes-grid">
+                    {% for recipe in recipes %}
+                        <article class="recipe-card">
+                            <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="recipe-card-media">
+                                {% if recipe.imageName %}
+                                    <img src="{{ asset('images/' ~ recipe.imageName) }}" alt="{{ recipe.title }}" class="recipe-card-img">
+                                {% else %}
+                                    <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="{{ recipe.title }}" class="recipe-card-img" style="object-fit: contain; padding: 2rem;">
+                                {% endif %}
+                                {% if recipe.category %}
+                                    <span class="recipe-card-category">{{ recipe.category.name }}</span>
+                                {% endif %}
+                            </a>
+                            <div class="recipe-card-body">
+                                <h3 class="recipe-card-title">
+                                    <a href="{{ path('app_recipe_show', {id: recipe.id}) }}">{{ recipe.title }}</a>
+                                </h3>
+                                <p class="recipe-card-desc">{{ recipe.description|default('Une délicieuse recette à découvrir pas à pas.')|u.truncate(90, '...') }}</p>
+                                <div class="recipe-card-meta">
+                                    <span class="recipe-meta-item">⏱️ {{ recipe.prepTime ? recipe.prepTime ~ ' min' : '30 min' }}</span>
+                                    <span class="recipe-meta-item">⭐ {{ recipe.difficulty|default('Facile') }}</span>
+                                    <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {# Cas B : Recettes de démonstration pour vitrine initiale #}
+                <div class="recipes-grid">
+                    {# Carte 1 : Cari camarons #}
+                    <article class="recipe-card">
+                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                            <img src="{{ asset('images/cari-camarons-réunionnais.jpg') }}" alt="Cari Camarons Réunionnais" class="recipe-card-img">
+                            <span class="recipe-card-category">Plat Réunionnais</span>
+                        </a>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">
+                                <a href="{{ path('app_recipe_show') }}">Cari Camarons Traditionnel</a>
+                            </h3>
+                            <p class="recipe-card-desc">Le grand classique réunionnais aux camarons mijotés avec tomates, curcuma frais, gingembre et thym du jardin.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 45 min</span>
+                                <span class="recipe-meta-item">⭐ Moyen</span>
+                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    {# Carte 2 : Rougail saucisse #}
+                    <article class="recipe-card">
+                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                            <img src="{{ asset('images/rougail-saucisse.jpg') }}" alt="Rougail Saucisse" class="recipe-card-img">
+                            <span class="recipe-card-category">Plat Typique</span>
+                        </a>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">
+                                <a href="{{ path('app_recipe_show') }}">Rougail Saucisse Fumé</a>
+                            </h3>
+                            <p class="recipe-card-desc">L'incontournable rougail cuisiné avec des saucisses fumées, oignons croustillants et une pointe de piment oiseau.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 35 min</span>
+                                <span class="recipe-meta-item">⭐ Facile</span>
+                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    {# Carte 3 : Fondant au chocolat #}
+                    <article class="recipe-card">
+                        <a href="{{ path('app_recipe_show') }}" class="recipe-card-media">
+                            <img src="{{ asset('images/chocolateCakeaRogner.jpg') }}" alt="Gâteau au Chocolat Moelleux" class="recipe-card-img">
+                            <span class="recipe-card-category">Dessert Gourmand</span>
+                        </a>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-card-title">
+                                <a href="{{ path('app_recipe_show') }}">Fondant au Chocolat Noir</a>
+                            </h3>
+                            <p class="recipe-card-desc">Un cœur coulant irrésistible avec du chocolat noir intense et une pointe de fleur de sel.</p>
+                            <div class="recipe-card-meta">
+                                <span class="recipe-meta-item">⏱️ 25 min</span>
+                                <span class="recipe-meta-item">⭐ Très facile</span>
+                                <a href="{{ path('app_recipe_show') }}" class="btn btn-primary btn-sm">Voir la recette</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                {# Bloc d'incitation à la publication #}
+                <div class="empty-state">
+                    <div class="empty-state-icon">🍳</div>
+                    <h3>Prêt à partager votre première recette ?</h3>
+                    <p>La base de données est prête à accueillir toutes vos inspirations culinaires et celles de vos abonnés.</p>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+
+    {# =========================================================================
+       4. BANNIÈRE INSTAGRAM
+       Conforme à la maquette graphique : appel à rejoindre la communauté Instagram
+       sur fond de bannière d'ustensiles avec bouton d'accès circulaire
+       ========================================================================= #}
+    <section class="instagram-banner">
+        <div class="instagram-content">
+            <h2 class="instagram-title">Suivez nous sur Instagram</h2>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="instagram-btn" aria-label="Suivez Cookery Island sur Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="instagram-icon">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+        </div>
+    </section>
+{% endblock %}

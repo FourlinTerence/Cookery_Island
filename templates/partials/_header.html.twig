@@ -1,0 +1,36 @@
+{# =============================================================================
+   PARTIAL: HEADER & NAVIGATION
+   Comprend le logo du site, les liens de navigation et la zone d'authentification.
+   Inclus par défaut dans le bloc {% block header %} du layout base.html.twig.
+   ============================================================================= #}
+<header>
+    <nav class="navbar">
+        <div class="navbar-container">
+            {# 1. Marque du site : logo à l'extrémité gauche et titre décalé vers la droite de 10% #}
+            <a href="{{ path('app_home') }}" class="navbar-brand">
+                <img src="{{ asset('images/Logo.Cookery_Island.png') }}" alt="Cookery Island Logo" class="navbar-logo">
+                <span class="navbar-title">Cookery Island</span>
+            </a>
+
+            {# 2. Liens de navigation : décalés vers la droite d'environ 25% de la largeur #}
+            <ul class="navbar-nav">
+                <li><a href="{{ path('app_home') }}" class="nav-link active">Accueil</a></li>
+                <li><a href="#recettes" class="nav-link">Nos Recettes</a></li>
+            </ul>
+
+            {# 3. Zone d'authentification utilisateur / Boutons d'action alignés à droite #}
+            <div class="navbar-auth">
+                {% if app.user %}
+                    <span class="nav-user">Bonjour, <strong>{{ app.user.username ?? app.user.userIdentifier }}</strong></span>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="#" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Dashboard</a>
+                    {% endif %}
+                    <a href="#" class="btn btn-accent">+ Publier</a>
+                {% else %}
+                    <a href="#" class="btn btn-outline">Connexion</a>
+                    <a href="#" class="btn btn-primary">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

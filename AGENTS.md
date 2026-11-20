@@ -120,6 +120,16 @@ Symfony's coding standard, the `@Symfony` php-cs-fixer ruleset (a PSR-12-derived
 superset). Run `vendor/bin/php-cs-fixer fix` if `friendsofphp/php-cs-fixer` is
 installed; it isn't part of the skeleton by default.
 
+## Documentation & Code Comments
+
+- Commenter le code de façon claire et pédagogique pour expliquer à quoi servent les blocs :
+  - **PHP / Symfony** : expliciter le rôle des classes, entités, services et méthodes (PHPDoc et commentaires de blocs logiques).
+  - **Twig** : commenter les grandes sections des templates (`{# --- En-tête / Barre de navigation --- #}`, `{# --- Grille des recettes --- #}`, etc.).
+  - **CSS** : structurer les feuilles de styles avec des en-têtes de blocs clairs et commenter le rôle des composants et propriétés clés (Flexbox, Grid, variables, media queries).
+  - **JavaScript** : documenter l'utilité des fonctions, des écouteurs d'événements et de la logique métier.
+- Donner une vue d'ensemble du *pourquoi* et du *comment* pour faciliter la maintenance et la compréhension du projet.
+
+
 ## Discover, don't guess
 
 Framework APIs change between versions and your training data may be stale. Look

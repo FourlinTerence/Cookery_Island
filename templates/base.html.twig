@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
         <title>{% block title %}Cookery Island{% endblock %}</title>
 
         {# Polices officielles définies par la charte graphique : Calistoga (H1), Copse (H2/H3), Montserrat (Corps) #}
@@ -12,13 +13,20 @@
 
         <link rel="icon" href="{{ asset('images/Logo.Cookery_Island.png') }}">
 
+=======
+        <title>{% block title %}Cookery Island - Blog culinaire & Recettes{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/Logo.Cookery_Island.png') }}">
+        
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+<<<<<<< HEAD
     <body class="site-body">
         {# Bloc d'en-tête personnalisable (peut être omis sur les pages de connexion/inscription) #}
         {% block header %}
@@ -56,5 +64,34 @@
                 <p class="footer-copyright">©Cookery_Island corporation. Tous droits réservés.</p>
             </div>
         </footer>
+=======
+    <body>
+        {# =====================================================================
+           BLOC HEADER (EN-TÊTE & NAVIGATION)
+           Définit la barre de navigation du site via un partial réutilisable.
+           Ce bloc peut être surchargé ou désactivé par les templates enfants
+           (ex: pages d'administration, tunnels d'inscription ou modals).
+           ===================================================================== #}
+        {% block header %}
+            {% include 'partials/_header.html.twig' %}
+        {% endblock %}
+
+        {# =====================================================================
+           BLOC MAIN / BODY (CONTENU PRINCIPAL)
+           Zone centrale dynamique spécifique à chaque vue de l'application.
+           ===================================================================== #}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        {# =====================================================================
+           BLOC FOOTER (PIED DE PAGE)
+           Affiche les informations de marque, menus de navigation et copyright.
+           Ce bloc peut être personnalisé ou masqué selon les besoins des pages.
+           ===================================================================== #}
+        {% block footer %}
+            {% include 'partials/_footer.html.twig' %}
+        {% endblock %}
+>>>>>>> 18106181fe6c691df80bae431a1b23cbb7b36bcc
     </body>
 </html>
