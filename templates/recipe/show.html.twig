@@ -5,22 +5,31 @@
 {% block body %}
     {# =========================================================================
        1. HERO BANNER DE LA RECETTE
-       Bannière avec fond d'ustensiles et titre de la recette en vedette
+       Bannière avec le titre de la recette en vedette
        ========================================================================= #}
     <section class="hero-banner recipe-hero">
         <div class="hero-content">
             <h1 class="hero-title">{{ recipe.title }}</h1>
-            <p class="hero-subtitle">{{ recipe.category }} • {{ recipe.difficulty }} • {{ recipe.totalTime }} min au total</p>
+            <p class="hero-subtitle">
+                {% if recipe.category %}{{ recipe.category.name }} • {% endif %}
+                {{ recipe.difficulty }}
+                {% if recipe.prepTime and recipe.cookTime %} • {{ recipe.prepTime + recipe.cookTime }} min au total{% endif %}
+            </p>
         </div>
     </section>
 
     <div class="main-content recipe-content">
+
         {# =====================================================================
            2. IMAGE PRINCIPALE DE LA RECETTE
            Grande photo mise en avant du plat préparé
            ===================================================================== #}
         <div class="recipe-main-media">
-            <img src="{{ asset('images/' ~ recipe.image) }}" alt="{{ recipe.title }}" class="recipe-featured-img">
+            {% if recipe.imageName %}
+                <img src="{{ asset('images/' ~ recipe.imageName) }}"
+                     alt="{{ recipe.title }}"
+                     class="recipe-featured-img">
+            {% endif %}
         </div>
 
         {# =====================================================================
@@ -28,117 +37,167 @@
            Temps de préparation, cuisson, portions et difficulté
            ===================================================================== #}
         <div class="recipe-meta-cards">
+            {% if recipe.prepTime %}
             <div class="recipe-meta-box">
                 <span class="meta-box-icon">⏱️</span>
                 <span class="meta-box-label">Préparation</span>
                 <span class="meta-box-value">{{ recipe.prepTime }} min</span>
             </div>
+            {% endif %}
+
+            {% if recipe.cookTime %}
             <div class="recipe-meta-box">
                 <span class="meta-box-icon">🔥</span>
                 <span class="meta-box-label">Cuisson</span>
                 <span class="meta-box-value">{{ recipe.cookTime }} min</span>
             </div>
+            {% endif %}
+
+            {% if recipe.servings %}
             <div class="recipe-meta-box">
                 <span class="meta-box-icon">👥</span>
                 <span class="meta-box-label">Portions</span>
                 <span class="meta-box-value">{{ recipe.servings }} personnes</span>
             </div>
+            {% endif %}
+
+            {% if recipe.difficulty %}
             <div class="recipe-meta-box">
                 <span class="meta-box-icon">⭐</span>
                 <span class="meta-box-label">Difficulté</span>
                 <span class="meta-box-value">{{ recipe.difficulty }}</span>
             </div>
+            {% endif %}
         </div>
 
         {# =====================================================================
-           4. BLOC DES INGRÉDIENTS (DISPOSITION SUR 2 COLONNES)
-           Conforme à la maquette : 2 colonnes à puces sur fond sablé doux
+           4. DESCRIPTION DE LA RECETTE
+           Présentation courte du plat
+           ===================================================================== #}
+        {% if recipe.description %}
+        <section class="recipe-card-box">
+            <p class="recipe-description">{{ recipe.description }}</p>
+        </section>
+        {% endif %}
+
+        {# =====================================================================
+           5. BLOC DES INGRÉDIENTS (DISPOSITION SUR 2 COLONNES)
+           Les RecipeIngredient sont affichés avec leur quantité, unité et nom.
+           On sépare la collection en deux moitiés pour l'affichage en 2 colonnes.
            ===================================================================== #}
         <section class="recipe-card-box recipe-ingredients-box">
             <h2 class="recipe-box-title">Ingrédients</h2>
+
+            {% set allIngredients = recipe.recipeIngredients|map(ri => {
+                'qty':  ri.quantity,
+                'unit': ri.unit ? ri.unit.abbreviation : '',
+                'name': ri.ingredient.name
+            }) %}
+
+            {% set half = (allIngredients|length / 2)|round(0, 'ceil') %}
+
             <div class="ingredients-grid">
+                {# Première colonne : première moitié de la liste #}
                 <ul class="ingredients-list">
-                    {% for item in recipe.ingredients.col1 %}
-                        <li>{{ item }}</li>
+                    {% for item in allIngredients|slice(0, half) %}
+                        <li>
+                            {% if item.qty %}{{ item.qty|number_format(item.qty == item.qty|round ? 0 : 1) }} {% endif %}
+                            {{ item.unit }} {{ item.name }}
+                        </li>
                     {% endfor %}
                 </ul>
+                {# Seconde colonne : seconde moitié #}
                 <ul class="ingredients-list">
-                    {% for item in recipe.ingredients.col2 %}
-                        <li>{{ item }}</li>
+                    {% for item in allIngredients|slice(half) %}
+                        <li>
+                            {% if item.qty %}{{ item.qty|number_format(item.qty == item.qty|round ? 0 : 1) }} {% endif %}
+                            {{ item.unit }} {{ item.name }}
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
         </section>
 
         {# =====================================================================
-           5. ÉTAPE 1 DE PRÉPARATION
-           Explications détaillées de la première phase de cuisine
+           6. ÉTAPES DE PRÉPARATION
+           Les instructions sont stockées en texte brut avec des sauts de ligne
+           comme séparateurs d'étapes. On les affiche comme blocs distincts.
            ===================================================================== #}
-        <section class="recipe-card-box recipe-step-box">
-            <h3 class="recipe-step-title">{{ recipe.steps[0].title }}</h3>
-            <p class="recipe-step-text">{{ recipe.steps[0].content }}</p>
-        </section>
+        {% if recipe.instructions %}
+            {% set steps = recipe.instructions|split("\n\n") %}
+            {% for i, step in steps %}
+                {% if step|trim %}
+                <section class="recipe-card-box recipe-step-box">
+                    <h3 class="recipe-step-title">Étape {{ i + 1 }}</h3>
+                    <p class="recipe-step-text">{{ step|trim }}</p>
+                </section>
+
+                {# Image intermédiaire insérée entre l'étape 1 et l'étape 2 #}
+                {% if i == 0 and recipe.imageTwoName %}
+                <div class="recipe-secondary-media">
+                    <img src="{{ asset('images/' ~ recipe.imageTwoName) }}"
+                         alt="Illustration de préparation — {{ recipe.title }}"
+                         class="recipe-step-img">
+                </div>
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
         {# =====================================================================
-           6. IMAGE INTERMÉDIAIRE ILLUSTRATIVE
-           Photo d'illustration intermédiaire conforme à la maquette de l'article
+           8. INFORMATIONS AUTEUR
+           Affiche le nom de l'auteur et la date de publication
            ===================================================================== #}
-        <div class="recipe-secondary-media">
-            <img src="{{ asset('images/' ~ recipe.secondaryImage) }}" alt="Mijotage et cuisson des saveurs créoles" class="recipe-step-img">
+        <div class="recipe-author-info">
+            <span>Recette publiée par <strong>{{ recipe.author.username }}</strong></span>
+            <span class="recipe-date">le {{ recipe.createdAt|date('d/m/Y') }}</span>
         </div>
 
         {# =====================================================================
-           7. ÉTAPE 2 DE PRÉPARATION
-           Explications de la phase de mijotage et conseils de dégustation
-           ===================================================================== #}
-        <section class="recipe-card-box recipe-step-box">
-            <h3 class="recipe-step-title">{{ recipe.steps[1].title }}</h3>
-            <p class="recipe-step-text">{{ recipe.steps[1].content }}</p>
-        </section>
-
-        {# =====================================================================
-           8. ESPACE COMMENTAIRES
-           Liste des avis communautaires et formulaire d'ajout d'un commentaire
+           9. ESPACE COMMENTAIRES
+           Liste des commentaires réels en base de données + formulaire statique
            ===================================================================== #}
         <section class="recipe-card-box recipe-comments-box">
             <h2 class="comments-main-title">Commentaires ({{ recipe.comments|length }})</h2>
 
-            {# Liste des commentaires existants #}
+            {# --- Liste des commentaires persistés en base --- #}
             <div class="comments-list">
                 {% for comment in recipe.comments %}
                     <article class="comment-item">
                         <div class="comment-header">
-                            <span class="comment-avatar">{{ comment.avatar }}</span>
+                            <span class="comment-avatar">👤</span>
                             <div class="comment-user-info">
-                                <strong class="comment-author">{{ comment.author }}</strong>
-                                <span class="comment-date">{{ comment.date }}</span>
-                            </div>
-                            <div class="comment-rating" aria-label="Note 5 sur 5">
-                                {% for i in 1..comment.rating %}
-                                    <span class="star-icon">⭐</span>
-                                {% endfor %}
+                                <strong class="comment-author">{{ comment.author.username }}</strong>
+                                <span class="comment-date">{{ comment.createdAt|date('d/m/Y') }}</span>
                             </div>
                         </div>
                         <p class="comment-content">{{ comment.content }}</p>
                     </article>
+                {% else %}
+                    <p class="no-comments">Soyez le premier à commenter cette recette !</p>
                 {% endfor %}
             </div>
 
-            {# Formulaire fictif d'ajout de commentaire #}
+            {# --- Formulaire fictif d'ajout de commentaire (sera remplacé par un Form Symfony) --- #}
             <div class="comment-form-wrapper">
                 <h3 class="comment-form-title">Postez votre commentaire</h3>
-                <form action="#" method="post" class="comment-form" onsubmit="event.preventDefault(); alert('Merci pour votre commentaire ! Il sera publié prochainement.');">
+                <form action="#" method="post" class="comment-form"
+                      onsubmit="event.preventDefault(); alert('Merci pour votre commentaire ! Il sera publié prochainement.');">
                     <div class="form-group">
                         <label for="comment-pseudo">Votre pseudo</label>
-                        <input type="text" id="comment-pseudo" name="pseudo" placeholder="Ex: ChefGourmet974" required class="form-control">
+                        <input type="text" id="comment-pseudo" name="pseudo"
+                               placeholder="Ex: ChefGourmet974" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="comment-message">Votre message</label>
-                        <textarea id="comment-message" name="message" rows="4" placeholder="Partagez votre avis, vos astuces ou vos variantes sur cette recette..." required class="form-control"></textarea>
+                        <textarea id="comment-message" name="message" rows="4"
+                                  placeholder="Partagez votre avis, vos astuces ou vos variantes sur cette recette..."
+                                  required class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-accent">Publier mon commentaire</button>
                 </form>
             </div>
         </section>
+
     </div>
 {% endblock %}
