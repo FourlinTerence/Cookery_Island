@@ -1,0 +1,360 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Recettes - Cookery Island{% endblock %}
+
+{% block body %}
+    {# =========================================================================
+       1. HERO BANNER : NOS RECETTES
+       Bannière d'en-tête inspirée de la maquette "Nos recettes",
+       avec fond ustensiles et typographie distinctive de la marque.
+       ========================================================================= #}
+    <section class="hero-banner recipe-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Nos recettes</h1>
+            <p class="hero-subtitle">
+                Découvrez toutes les créations de Cookery Island : saveurs créoles,
+                plats traditionnels et douceurs exotiques à concocter chez vous.
+            </p>
+        </div>
+    </section>
+
+    <div class="main-content">
+
+        {# =====================================================================
+           2. SECTION DE FILTRES MULTICRITÈRES
+           Formulaire GET complet permettant de filtrer par :
+           - Recherche par mots-clés
+           - Temps total (préparation + cuisson) séparé en Rapide / Long
+           - Difficulté de la recette
+           - Catégorie culinaire
+           - Recettes likées / favorites (si l'utilisateur est authentifié)
+           ===================================================================== #}
+        <section class="recipes-filter-section" aria-label="Filtrer les recettes">
+            <form method="get" action="{{ path('app_recipe_index') }}" class="filter-card">
+
+                {# Ligne 1 : Barre de recherche textuelle globale #}
+                <div class="filter-search-row">
+                    <div class="filter-search-box">
+                        <span class="filter-icon" aria-hidden="true">🔍</span>
+                        <input
+                            type="search"
+                            name="search"
+                            value="{{ filters.search }}"
+                            placeholder="Rechercher par titre, ingrédient (ex: Rougail, Saucisse, Camarons...)"
+                            class="filter-input-search"
+                            aria-label="Recherche textuelle"
+                        >
+                    </div>
+                </div>
+
+                {# Ligne 2 : Filtres avancés en grille responsive #}
+                <div class="filter-controls-grid">
+
+                    {# Filtre A : Catégorie culinaire #}
+                    <div class="filter-group">
+                        <label for="filter-category" class="filter-label">Catégorie</label>
+                        <select name="category" id="filter-category" class="filter-select">
+                            <option value="">Toutes les catégories</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat.slug }}" {% if filters.category == cat.slug %}selected{% endif %}>
+                                    {{ cat.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# Filtre B : Temps total (addition de prepTime + cookTime : rapide <= 40 min / long > 40 min) #}
+                    <div class="filter-group">
+                        <label for="filter-duration" class="filter-label">Temps total (prép + cuisson)</label>
+                        <select name="duration" id="filter-duration" class="filter-select">
+                            <option value="">Toutes les durées</option>
+                            <option value="fast" {% if filters.duration == 'fast' %}selected{% endif %}>
+                                ⚡ Rapide (≤ 40 min)
+                            </option>
+                            <option value="long" {% if filters.duration == 'long' %}selected{% endif %}>
+                                ⏳ Long (+ de 40 min)
+                            </option>
+                        </select>
+                    </div>
+
+                    {# Filtre C : Niveau de difficulté #}
+                    <div class="filter-group">
+                        <label for="filter-difficulty" class="filter-label">Difficulté</label>
+                        <select name="difficulty" id="filter-difficulty" class="filter-select">
+                            <option value="">Toutes les difficultés</option>
+                            {% for diff in difficulties %}
+                                <option value="{{ diff }}" {% if filters.difficulty == diff %}selected{% endif %}>
+                                    {{ diff }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# Filtre D : Tri des recettes #}
+                    <div class="filter-group">
+                        <label for="filter-sort" class="filter-label">Trier par</label>
+                        <select name="sort" id="filter-sort" class="filter-select">
+                            <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Plus récentes</option>
+                            <option value="oldest" {% if filters.sort == 'oldest' %}selected{% endif %}>Plus anciennes</option>
+                            <option value="prep_asc" {% if filters.sort == 'prep_asc' %}selected{% endif %}>Temps : court à long</option>
+                            <option value="prep_desc" {% if filters.sort == 'prep_desc' %}selected{% endif %}>Temps : long à court</option>
+                            <option value="title_asc" {% if filters.sort == 'title_asc' %}selected{% endif %}>Titre (A-Z)</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                {# Ligne 3 : Filtre des Likes (si connecté) et boutons d'action #}
+                <div class="filter-actions-row">
+
+                    {# Option : Filtrer par les recettes favorites de l'utilisateur connecté #}
+                    <div class="filter-likes-wrapper">
+                        {% if app.user %}
+                            <label class="filter-checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="liked"
+                                    value="1"
+                                    {% if filters.liked %}checked{% endif %}
+                                    class="filter-checkbox"
+                                >
+                                <span class="filter-checkbox-custom"></span>
+                                <span class="filter-checkbox-text">
+                                    ❤️ Uniquement mes favoris
+                                </span>
+                            </label>
+                        {% else %}
+                            <div class="filter-likes-disabled" title="Connectez-vous pour filtrer selon vos recettes préférées">
+                                <span class="filter-likes-icon" aria-hidden="true">🔒</span>
+                                <span class="filter-likes-text">
+                                    Connectez-vous pour filtrer par vos <strong>favoris</strong>
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {# Boutons : Soumission du formulaire et Réinitialisation des critères #}
+                    <div class="filter-buttons">
+                        {% if filters.search or filters.category or filters.duration or filters.difficulty or filters.liked or (filters.sort and filters.sort != 'newest') %}
+                            <a href="{{ path('app_recipe_index') }}" class="btn btn-outline btn-sm">
+                                ↺ Réinitialiser
+                            </a>
+                        {% endif %}
+                        <button type="submit" class="btn btn-accent btn-sm">
+                            Filtrer les recettes
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+        </section>
+
+        {# =====================================================================
+           3. BARRE DE RÉSULTATS & STATISTIQUES
+           Affiche le compteur de recettes trouvées et l'indication de page
+           ===================================================================== #}
+        <div class="recipes-results-bar">
+            <div class="results-count">
+                <strong>{{ totalRecipes }}</strong>
+                {{ totalRecipes > 1 ? 'recettes trouvées' : 'recette trouvée' }}
+                {% if totalPages > 1 %}
+                    <span class="results-page-indicator">• Page {{ currentPage }} sur {{ totalPages }}</span>
+                {% endif %}
+            </div>
+
+            {# Badges des filtres actuellement actifs #}
+            {% if filters.search or filters.category or filters.duration or filters.difficulty or filters.liked %}
+                <div class="active-filters-badges">
+                    <span class="active-filters-label">Filtres actifs :</span>
+
+                    {% if filters.search %}
+                        <a href="{{ path('app_recipe_index', app.request.query.all|merge({'search': null, 'page': 1})) }}" class="filter-badge" title="Supprimer ce filtre">
+                            « {{ filters.search }} » ✕
+                        </a>
+                    {% endif %}
+
+                    {% if filters.category %}
+                        <a href="{{ path('app_recipe_index', app.request.query.all|merge({'category': null, 'page': 1})) }}" class="filter-badge" title="Supprimer ce filtre">
+                            Catégorie : {{ filters.category }} ✕
+                        </a>
+                    {% endif %}
+
+                    {% if filters.duration %}
+                        <a href="{{ path('app_recipe_index', app.request.query.all|merge({'duration': null, 'page': 1})) }}" class="filter-badge" title="Supprimer ce filtre">
+                            {{ filters.duration == 'fast' ? '⚡ Rapide (≤ 40 min)' : '⏳ Long (+ 40 min)' }} ✕
+                        </a>
+                    {% endif %}
+
+                    {% if filters.difficulty %}
+                        <a href="{{ path('app_recipe_index', app.request.query.all|merge({'difficulty': null, 'page': 1})) }}" class="filter-badge" title="Supprimer ce filtre">
+                            Difficulté : {{ filters.difficulty }} ✕
+                        </a>
+                    {% endif %}
+
+                    {% if filters.liked %}
+                        <a href="{{ path('app_recipe_index', app.request.query.all|merge({'liked': null, 'page': 1})) }}" class="filter-badge filter-badge-heart" title="Supprimer ce filtre">
+                            ❤️ Mes favoris ✕
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        {# =====================================================================
+           4. GRILLE DES RECETTES (MAXIMUM 9 PAR PAGE)
+           Affichage conforme aux cartes de Cookery Island avec vignette,
+           temps total calculé, difficulté, portions et lien vers le détail
+           ===================================================================== #}
+        {% if recipes|length > 0 %}
+            <div class="recipes-grid">
+                {% for recipe in recipes %}
+                    <article class="recipe-card">
+
+                        {# Vignette média cliquable avec image et badges superposés #}
+                        <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="recipe-card-media">
+                            {% if recipe.imageName %}
+                                <img src="{{ asset('images/' ~ recipe.imageName) }}"
+                                     alt="{{ recipe.title }}"
+                                     class="recipe-card-img"
+                                     loading="lazy">
+                            {% else %}
+                                <div class="recipe-card-placeholder">🍳</div>
+                            {% endif %}
+
+                            {# Badge catégorie #}
+                            {% if recipe.category %}
+                                <span class="recipe-card-category">{{ recipe.category.name }}</span>
+                            {% endif %}
+
+                            {# Badge favori si connecté et recette likée #}
+                            {% if app.user and recipe.isLikedByUser(app.user) %}
+                                <span class="recipe-card-liked-badge" title="Vous avez aimé cette recette">❤️</span>
+                            {% endif %}
+                        </a>
+
+                        {# Corps de la carte avec titre, description et métadonnées #}
+                        <div class="recipe-card-body">
+                            <h2 class="recipe-card-title">
+                                <a href="{{ path('app_recipe_show', {id: recipe.id}) }}">
+                                    {{ recipe.title }}
+                                </a>
+                            </h2>
+
+                            <p class="recipe-card-desc">
+                                {{ recipe.description|default('Une savoureuse recette de notre île à découvrir pas à pas.')|u.truncate(105, '...') }}
+                            </p>
+
+                            {# Ligne de métadonnées de la recette #}
+                            <div class="recipe-card-meta">
+                                {# Temps total calculé (préparation + cuisson) #}
+                                <span class="recipe-meta-item" title="Temps total">
+                                    ⏱️ {{ recipe.totalTime ? recipe.totalTime ~ ' min' : (recipe.prepTime ? recipe.prepTime ~ ' min' : '30 min') }}
+                                </span>
+
+                                {# Difficulté #}
+                                <span class="recipe-meta-item" title="Niveau de difficulté">
+                                    ⭐ {{ recipe.difficulty|default('Facile') }}
+                                </span>
+
+                                {# Portions #}
+                                {% if recipe.servings %}
+                                    <span class="recipe-meta-item" title="Nombre de portions">
+                                        👥 {{ recipe.servings }} p.
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            {# Bouton d'action pour consulter la recette #}
+                            <div class="recipe-card-action">
+                                <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="btn btn-primary btn-sm btn-block">
+                                    Voir la recette
+                                </a>
+                            </div>
+                        </div>
+
+                    </article>
+                {% endfor %}
+            </div>
+
+            {# =================================================================
+               5. PAGINATION DES RECETTES
+               Système complet avec bouton Précédent, numéros de page et Suivant.
+               Conserve l'ensemble des filtres actifs dans chaque lien d'URL.
+               ================================================================= #}
+            {% if totalPages > 1 %}
+                <nav class="pagination-container" aria-label="Pagination des recettes">
+                    <ul class="pagination-list">
+
+                        {# Bouton Page Précédente #}
+                        <li class="pagination-item">
+                            {% if currentPage > 1 %}
+                                <a href="{{ path('app_recipe_index', app.request.query.all|merge({'page': currentPage - 1})) }}"
+                                   class="pagination-link pagination-prev"
+                                   aria-label="Page précédente">
+                                    &laquo; Précédent
+                                </a>
+                            {% else %}
+                                <span class="pagination-link pagination-disabled" aria-disabled="true">
+                                    &laquo; Précédent
+                                </span>
+                            {% endif %}
+                        </li>
+
+                        {# Numéros de page #}
+                        {% for p in 1..totalPages %}
+                            <li class="pagination-item">
+                                {% if p == currentPage %}
+                                    <span class="pagination-link pagination-current" aria-current="page">
+                                        {{ p }}
+                                    </span>
+                                {% else %}
+                                    <a href="{{ path('app_recipe_index', app.request.query.all|merge({'page': p})) }}"
+                                       class="pagination-link">
+                                        {{ p }}
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+
+                        {# Bouton Page Suivante #}
+                        <li class="pagination-item">
+                            {% if currentPage < totalPages %}
+                                <a href="{{ path('app_recipe_index', app.request.query.all|merge({'page': currentPage + 1})) }}"
+                                   class="pagination-link pagination-next"
+                                   aria-label="Page suivante">
+                                    Suivant &raquo;
+                                </a>
+                            {% else %}
+                                <span class="pagination-link pagination-disabled" aria-disabled="true">
+                                    Suivant &raquo;
+                                </span>
+                            {% endif %}
+                        </li>
+
+                    </ul>
+                </nav>
+            {% endif %}
+
+        {% else %}
+            {# =================================================================
+               6. ÉTAT VIDE : AUCUNE RECETTE TROUVÉE
+               Affiché si les critères de recherche ne retournent aucun résultat
+               ================================================================= #}
+            <div class="empty-state">
+                <div class="empty-state-icon">🍲</div>
+                <h3>Aucune recette ne correspond à vos critères</h3>
+                <p>
+                    Essayez de modifier ou de réinitialiser vos filtres (temps, difficulté,
+                    catégorie) pour découvrir d'autres idées de petits plats créoles.
+                </p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="{{ path('app_recipe_index') }}" class="btn btn-accent">
+                        Afficher toutes les recettes
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

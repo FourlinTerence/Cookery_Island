@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
+use App\Entity\RecipeLike;
 use App\Entity\Unit;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -794,6 +795,7 @@ class AppFixtures extends Fixture
         // Boucle de création : hydrate et persiste chaque recette
         // avec ses RecipeIngredient et ses Comment associés
         // -----------------------------------------------------------------
+        $createdRecipes = [];
         foreach ($recipesData as $data) {
 
             // === Recette principale ===
@@ -832,6 +834,29 @@ class AppFixtures extends Fixture
                         ->setRecipe($recipe)
                         ->setCreatedAt(new \DateTimeImmutable($dateStr));
                 $manager->persist($comment);
+            }
+
+            $createdRecipes[] = $recipe;
+        }
+
+        // === Likes de démonstration (pour tester le filtre "Mes likes / Favoris") ===
+        // On associe plusieurs likes aux utilisateurs de test
+        $likesMap = [
+            'admin' => [0, 1, 2, 5, 8],     // L'admin aime 5 recettes
+            'user1' => [0, 1, 3, 7, 14],    // user1 aime 5 recettes
+            'user2' => [1, 4, 6, 10],       // user2 aime 4 recettes
+            'user3' => [2, 3, 8, 12, 14],   // user3 aime 5 recettes
+        ];
+
+        foreach ($likesMap as $userKey => $recipeIndexes) {
+            foreach ($recipeIndexes as $index) {
+                if (isset($createdRecipes[$index])) {
+                    $like = new RecipeLike();
+                    $like->setUser($users[$userKey])
+                         ->setRecipe($createdRecipes[$index])
+                         ->setCreatedAt(new \DateTimeImmutable());
+                    $manager->persist($like);
+                }
             }
         }
     }
