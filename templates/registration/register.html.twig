@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - Cookery Island{% endblock %}
+
+{# Le header (barre de navigation) est retiré sur cette page conformément à la demande #}
+{% block header %}{% endblock %}
+
+{% block body %}
+    {# Bannière supérieure reprenant le fond ustensiles en bois du template article #}
+    <section class="banner-section" aria-label="Bannière de la page">
+        <div class="banner-content">
+            {# Titre H1 reprenant la police Calistoga #}
+            <h1 class="banner-title">Inscription</h1>
+        </div>
+    </section>
+
+    {# Zone centrale avec fond caramel #A3795D et carte d'inscription sable #E8E2DA #}
+    <div class="login-page-container">
+        <div class="login-card register-card">
+            <header class="login-card-header">
+                {# Titre H2 reprenant la police Copse #}
+                <h2 class="login-card-title">Rejoindre Cookery Island</h2>
+                <p class="login-card-description">
+                    Créez votre compte pour partager vos propres recettes, sauvegarder vos favoris et commenter.
+                </p>
+            </header>
+
+            {# Notification d'erreur éventuelle #}
+            {% if error %}
+                <div class="auth-alert-box auth-alert-error" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {# Formulaire d'inscription #}
+            <form action="{{ path('app_register') }}" method="post" class="login-form" novalidate>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('register') }}">
+
+                <div class="form-field-group">
+                    <label for="reg_username" class="form-field-label">Nom d'utilisateur / Pseudo</label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        id="reg_username" 
+                        value="{{ last_username }}"
+                        class="form-field-input" 
+                        autocomplete="username" 
+                        placeholder="Ex: ChefGourmet" 
+                        required 
+                        autofocus
+                    >
+                </div>
+
+                <div class="form-field-group">
+                    <label for="reg_email" class="form-field-label">Adresse Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        id="reg_email" 
+                        value="{{ last_email }}"
+                        class="form-field-input" 
+                        autocomplete="email" 
+                        placeholder="exemple@cookery-island.com" 
+                        required
+                    >
+                </div>
+
+                <div class="form-grid-row">
+                    <div class="form-field-group">
+                        <label for="reg_password" class="form-field-label">Mot de passe</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="reg_password" 
+                            class="form-field-input" 
+                            autocomplete="new-password" 
+                            placeholder="6 caractères min." 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field-group">
+                        <label for="reg_confirm_password" class="form-field-label">Confirmer le mot de passe</label>
+                        <input 
+                            type="password" 
+                            name="confirm_password" 
+                            id="reg_confirm_password" 
+                            class="form-field-input" 
+                            autocomplete="new-password" 
+                            placeholder="Répétez le mot de passe" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-checkbox-group">
+                    <label class="form-checkbox-label">
+                        <input type="checkbox" name="agreeTerms" id="agreeTerms" class="form-checkbox-input" required>
+                        <span class="form-checkbox-text">J'accepte les conditions d'utilisation et la politique de confidentialité</span>
+                    </label>
+                </div>
+
+                <div class="form-submit-group">
+                    <button type="submit" class="btn-auth-submit">
+                        Créer mon compte
+                    </button>
+                </div>
+
+                {# Lien vers la page de connexion #}
+                <div class="login-card-footer">
+                    <span class="login-register-prompt">Déjà inscrit ?</span>
+                    <a href="{{ path('app_login') }}" class="auth-link-action">Se connecter</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

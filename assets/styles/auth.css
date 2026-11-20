@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Cookery Island - Charte Graphique & Authentification (auth.css)
+   ========================================================================== */
+:root {
+    --color-sand: #E8E2DA;
+    --color-caramel: #A3795D;
+    --color-caramel-dark: #875F45;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-text-dark: #201A16;
+    --color-text-muted: #6B6259;
+    --color-border: #D1C5B6;
+    --color-disabled: #A8A199;
+
+    --font-h1: 'Calistoga', Georgia, serif;
+    --font-heading: 'Copse', Georgia, serif;
+    --font-body: 'Montserrat', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    background-color: var(--color-caramel);
+}
+
+/* Bannière Ustensiles */
+.banner-section {
+    width: 100%;
+    min-height: 160px;
+    background: url('../images/backgroundHeader.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-title {
+    font-family: var(--font-h1);
+    font-size: 2.8rem;
+    color: var(--color-black);
+}
+
+/* Conteneur et cartes */
+.auth-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 44px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+    background-color: var(--color-sand);
+    border-radius: 6px;
+    padding: 40px 44px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.auth-card-wide { max-width: 600px; }
+
+.auth-header { text-align: center; margin-bottom: 26px; }
+.auth-title { font-family: var(--font-heading); font-size: 1.85rem; margin-bottom: 8px; color: var(--color-black); }
+.auth-subtitle { font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.5; }
+
+/* Champs et formulaires */
+.form-group { margin-bottom: 20px; }
+.form-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.form-label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    border-color: var(--color-caramel);
+    box-shadow: 0 0 0 3px rgba(163, 121, 93, 0.25);
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.form-checkbox { display: flex; align-items: center; gap: 8px; margin-bottom: 22px; cursor: pointer; }
+.form-checkbox input { accent-color: var(--color-caramel); width: 17px; height: 17px; }
+
+/* Bouton d'action principal */
+.btn-submit {
+    width: 100%;
+    padding: 13px 20px;
+    background-color: var(--color-caramel);
+    color: var(--color-white);
+    font-size: 1.05rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-submit:hover { background-color: var(--color-caramel-dark); }
+
+/* Liens et états désactivés */
+.link-action { color: var(--color-caramel-dark); font-weight: 700; text-decoration: underline; }
+.link-disabled { color: var(--color-disabled); cursor: not-allowed; opacity: 0.7; font-size: 0.88rem; }
+.auth-footer-prompt { display: flex; justify-content: center; gap: 8px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 0.92rem; }
+
+/* Pied de page */
+.site-footer {
+    background-color: var(--color-sand);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.site-footer img { height: 38px; }
+.site-footer p { font-size: 0.9rem; font-weight: 600; text-align: center; flex: 1; }
+
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .auth-card { padding: 26px 18px; }
+}

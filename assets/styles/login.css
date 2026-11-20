@@ -1,0 +1,242 @@
+/**
+ * Cookery Island - Styles pour l'authentification (Connexion & Inscription)
+ * Fichier : assets/styles/login.css
+ * 
+ * Harmonie avec la maquette de l'article :
+ * - Fond de page : Caramel chaud (#A3795D)
+ * - Fond du panneau : Sable (#E8E2DA)
+ * - Typographie H2 : Copse
+ * - Typographie Corps & Formulaires : Montserrat
+ */
+
+/* Conteneur principal de centrage */
+.login-page-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 20px;
+}
+
+/* Carte principale (style harmonisé avec les encadrés d'article) */
+.login-card {
+    width: 100%;
+    max-width: 540px;
+    background-color: var(--color-sand);
+    border-radius: 6px;
+    padding: 42px 46px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Variante légèrement plus large pour le formulaire d'inscription */
+.register-card {
+    max-width: 620px;
+}
+
+/* En-tête du bloc */
+.login-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.login-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 10px;
+}
+
+.login-card-description {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* Alertes (erreurs et succès) */
+.auth-alert-box {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 22px;
+    font-size: 0.92rem;
+    line-height: 1.4;
+}
+
+.auth-alert-error {
+    background-color: #FDEDED;
+    color: #5F2120;
+    border: 1px solid #F5C2C7;
+}
+
+.auth-alert-success {
+    background-color: #D4EDDA;
+    color: #155724;
+    border: 1px solid #C3E6CB;
+}
+
+/* Groupes de champs de saisie */
+.form-field-group {
+    margin-bottom: 20px;
+}
+
+.form-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.form-field-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 8px;
+}
+
+.form-label-row .form-field-label {
+    margin-bottom: 0;
+}
+
+.form-field-input {
+    width: 100%;
+    padding: 13px 16px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field-input:focus {
+    border-color: var(--color-caramel);
+    box-shadow: 0 0 0 3px rgba(163, 121, 93, 0.25);
+}
+
+.form-field-input::placeholder {
+    color: var(--color-disabled);
+    font-size: 0.95rem;
+}
+
+/* Ligne en grille pour l'inscription (mots de passe côte à côte sur écran large) */
+.form-grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Case à cocher */
+.form-checkbox-group {
+    margin-bottom: 24px;
+}
+
+.form-checkbox-label {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.form-checkbox-input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--color-caramel);
+    cursor: pointer;
+}
+
+.form-checkbox-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    line-height: 1.4;
+}
+
+/* Bouton principal de soumission */
+.form-submit-group {
+    margin-bottom: 22px;
+}
+
+.btn-auth-submit {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: var(--color-caramel);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-auth-submit:hover {
+    background-color: var(--color-caramel-dark);
+}
+
+.btn-auth-submit:active {
+    transform: scale(0.99);
+}
+
+/* Liens secondaires et navigation */
+.auth-link-action {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-caramel-dark);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.auth-link-action:hover {
+    color: var(--color-black);
+}
+
+.auth-link-disabled {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-disabled);
+    cursor: not-allowed;
+    text-decoration: none;
+    opacity: 0.7;
+    user-select: none;
+}
+
+.login-card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 0.92rem;
+}
+
+.login-register-prompt {
+    color: var(--color-text-muted);
+}
+
+/* Responsive pour tablettes et smartphones */
+@media (max-width: 600px) {
+    .login-card {
+        padding: 28px 20px;
+    }
+
+    .form-grid-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .login-card-title {
+        font-size: 1.55rem;
+    }
+}

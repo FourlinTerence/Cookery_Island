@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Cookery Island{% endblock %}
+
+{# Le header (barre de navigation) est retiré sur cette page conformément à la demande #}
+{% block header %}{% endblock %}
+
+{% block body %}
+    {# Bannière supérieure reprenant le fond ustensiles en bois du template article #}
+    <section class="banner-section" aria-label="Bannière de la page">
+        <div class="banner-content">
+            {# Titre H1 reprenant la police Calistoga conformément à la charte graphique #}
+            <h1 class="banner-title">Connexion</h1>
+        </div>
+    </section>
+
+    {# Zone centrale avec fond caramel #A3795D et carte de connexion sable #E8E2DA #}
+    <div class="login-page-container">
+        <div class="login-card">
+            <header class="login-card-header">
+                {# Titre H2 reprenant la police Copse #}
+                <h2 class="login-card-title">Bienvenue sur Cookery Island</h2>
+                <p class="login-card-description">
+                    Connectez-vous pour retrouver vos recettes favorites et participer aux échanges culinaires.
+                </p>
+            </header>
+
+            {# Messages flash (ex: confirmation d'inscription réussie) #}
+            {% for message in app.flashes('success') %}
+                <div class="auth-alert-box auth-alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {# Notification d'erreur Symfony le cas échéant #}
+            {% if error %}
+                <div class="auth-alert-box auth-alert-error" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {# Formulaire de connexion standard Symfony #}
+            <form action="{{ path('app_login') }}" method="post" class="login-form" novalidate>
+                {# Jeton de protection CSRF #}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="form-field-group">
+                    <label for="username" class="form-field-label">Adresse Email</label>
+                    <input 
+                        type="email" 
+                        value="{{ last_username }}" 
+                        name="_username" 
+                        id="username" 
+                        class="form-field-input" 
+                        autocomplete="email" 
+                        placeholder="exemple@cookery-island.com"
+                        required 
+                        autofocus
+                    >
+                </div>
+
+                <div class="form-field-group">
+                    <div class="form-label-row">
+                        <label for="password" class="form-field-label">Mot de passe</label>
+                        {# Lien grisé conformément à la règle stricte : fonctionnalité non encore prête #}
+                        <span class="auth-link-disabled" title="Fonctionnalité en cours de développement">Mot de passe oublié ?</span>
+                    </div>
+                    <input 
+                        type="password" 
+                        name="_password" 
+                        id="password" 
+                        class="form-field-input" 
+                        autocomplete="current-password" 
+                        placeholder="••••••••••••"
+                        required
+                    >
+                </div>
+
+                <div class="form-checkbox-group">
+                    <label class="form-checkbox-label">
+                        <input type="checkbox" name="_remember_me" class="form-checkbox-input">
+                        <span class="form-checkbox-custom"></span>
+                        <span class="form-checkbox-text">Se souvenir de moi</span>
+                    </label>
+                </div>
+
+                <div class="form-submit-group">
+                    <button type="submit" class="btn-auth-submit">
+                        Se connecter
+                    </button>
+                </div>
+
+                {# Lien vers l'inscription désormais actif car la page d'inscription est disponible #}
+                <div class="login-card-footer">
+                    <span class="login-register-prompt">Pas encore de compte ?</span>
+                    <a href="{{ path('app_register') }}" class="auth-link-action">Créer un compte</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Cookery Island</title>
+    <!-- Polices officielles de la charte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Copse&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <!-- Bannière Ustensiles (sans barre de navigation au-dessus) -->
+    <section class="banner-section">
+        <h1 class="banner-title">Connexion</h1>
+    </section>
+
+    <!-- Carte de connexion -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <header class="auth-header">
+                <h2 class="auth-title">Bienvenue sur Cookery Island</h2>
+                <p class="auth-subtitle">Connectez-vous pour retrouver vos recettes favorites et participer aux échanges culinaires.</p>
+            </header>
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="email" class="form-label">Adresse Email</label>
+                    <input type="email" id="email" name="_username" class="form-input" placeholder="exemple@cookery-island.com" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <span class="link-disabled" title="En cours de développement">Mot de passe oublié ?</span>
+                    </div>
+                    <input type="password" id="password" name="_password" class="form-input" placeholder="••••••••••••" required>
+                </div>
+
+                <label class="form-checkbox">
+                    <input type="checkbox" name="_remember_me">
+                    <span>Se souvenir de moi</span>
+                </label>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-submit">Se connecter</button>
+                </div>
+
+                <div class="auth-footer-prompt">
+                    <span>Pas encore de compte ?</span>
+                    <a href="/register" class="link-action">Créer un compte</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="site-footer">
+        <img src="images/Logo.Cookery_Island.png" alt="Cookery Island">
+        <p>©Cookery_Island corporation. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
