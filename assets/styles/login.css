@@ -9,6 +9,22 @@
  * - Typographie Corps & Formulaires : Montserrat
  */
 
+:root {
+    --color-sand: var(--sand, #E8E2DA);
+    --color-caramel: var(--primary, #A3795D);
+    --color-caramel-dark: var(--primary-dark, #7A543B);
+    --color-caramel-light: var(--primary-light, #C2997D);
+    --color-black: #2C2523;
+    --color-white: #FFFFFF;
+    --color-text-dark: var(--text-dark, #2C2523);
+    --color-text-muted: var(--text-muted, #706560);
+    --color-border: #D1C5B6;
+    --color-disabled: #A8A199;
+    --font-h1: 'Calistoga', cursive;
+    --font-heading: 'Copse', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
 /* Conteneur principal de centrage */
 .login-page-container {
     flex: 1;

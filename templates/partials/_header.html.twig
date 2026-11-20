@@ -34,9 +34,10 @@
                         <a href="#" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Dashboard</a>
                     {% endif %}
                     <a href="#" class="btn btn-accent">+ Publier</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">Déconnexion</a>
                 {% else %}
-                    <a href="#" class="btn btn-outline">Connexion</a>
-                    <a href="#" class="btn btn-primary">Inscription</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="btn btn-primary">Inscription</a>
                 {% endif %}
             </div>
         </div>
