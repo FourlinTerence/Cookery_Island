@@ -794,6 +794,87 @@ a {
     box-shadow: 0 0 0 3px rgba(217, 119, 54, 0.15);
 }
 
+/* Badge de l'utilisateur connecté dans le formulaire de commentaire */
+.comment-user-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.user-badge-icon {
+    font-size: 1.2rem;
+}
+
+/* Encart invitant l'utilisateur non connecté à s'authentifier pour commenter */
+.comment-login-required {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--primary-light);
+}
+
+.login-lock-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.comment-login-required h4 {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.4rem;
+}
+
+.comment-login-required p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto 1.2rem;
+}
+
+.comment-login-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Messages flash (succès / alerte) */
+.alert {
+    padding: 1rem 1.4rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #eaf7ed;
+    color: #1f6b34;
+    border: 1px solid #bce6c6;
+}
+
+.alert-danger {
+    background-color: #fbeae9;
+    color: #9f2416;
+    border: 1px solid #f2bcba;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+}
+
 /* ==========================================================================
    FOOTER (PIED DE PAGE)
    3 éléments positionnés à égale distance : Logo, Navigation et Communauté,

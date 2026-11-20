@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -102,14 +105,25 @@ final class RecipeController extends AbstractController
     }
 
     /**
-     * Page de détail d'une recette, identifiée par son ID en base de données.
+     * Page de détail d'une recette, avec liste des ingrédients, étapes de préparation
+     * et espace de commentaires dynamiques persistés en base de données.
      *
-     * @param int              $id               Identifiant de la recette en base
-     * @param RecipeRepository $recipeRepository Repository Doctrine injecté par autowiring
+     * La rédaction de commentaire nécessite d'être connecté :
+     * - L'auteur est automatiquement l'utilisateur authentifié (sécurisation anti-usurpation)
+     * - Le commentaire est persisté en base via l'EntityManager
+     *
+     * @param int                    $id               Identifiant de la recette en base
+     * @param Request                $request          Requête HTTP (capture de la soumission du commentaire)
+     * @param RecipeRepository       $recipeRepository Repository Doctrine injecté par autowiring
+     * @param EntityManagerInterface $entityManager    Gestionnaire d'entités pour l'insertion en base
      */
-    #[Route('/recette/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(int $id, RecipeRepository $recipeRepository): Response
-    {
+    #[Route('/recette/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function show(
+        int $id,
+        Request $request,
+        RecipeRepository $recipeRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
         // Chargement de la recette avec ses dépendances
         $recipe = $recipeRepository->find($id);
 
@@ -117,8 +131,38 @@ final class RecipeController extends AbstractController
             throw new NotFoundHttpException(sprintf('La recette #%d est introuvable.', $id));
         }
 
+        // --- Gestion du formulaire d'ajout de commentaire (si utilisateur connecté) ---
+        $commentForm = null;
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Association automatique avec l'utilisateur connecté et la recette consultée
+                $comment->setAuthor($user);
+                $comment->setRecipe($recipe);
+                $comment->setCreatedAt(new \DateTimeImmutable());
+
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre commentaire a été publié avec succès !');
+
+                return $this->redirectToRoute('app_recipe_show', [
+                    'id' => $recipe->getId(),
+                    '_fragment' => 'commentaires',
+                ]);
+            }
+
+            $commentForm = $form->createView();
+        }
+
         return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe,
+            'recipe'      => $recipe,
+            'commentForm' => $commentForm,
         ]);
     }
 }
